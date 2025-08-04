@@ -1,0 +1,3 @@
+nano .gitignore
+# hoặc dùng bất kỳ editor nào bạn thích (vim, code, etc.)
+.env
