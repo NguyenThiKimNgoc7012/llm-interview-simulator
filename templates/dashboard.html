@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Báo cáo Kết quả Phỏng vấn</title>
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    /* Header */
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    .dashboard-header img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+    }
+
+    /* Sections */
+    .dashboard-section {
+      margin-top: 30px;
+    }
+
+    .dashboard-section h4 {
+      margin-bottom: 15px;
+    }
+
+    /* Gauge & Radar Containers */
+    .gauge, .radar {
+      width: 100%;
+      height: 300px;
+    }
+
+    /* Skills Table */
+    .skills table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .skills table, th, td {
+      border: 1px solid #ddd;
+    }
+
+    .skills th, td {
+      padding: 10px;
+      text-align: left;
+    }
+
+    .skills th {
+      background-color: #f2f2f2;
+    }
+
+    /* Buttons */
+    .btn-primary, .btn-success {
+      margin-top: 20px;
+      margin-right: 10px;
+    }
+
+    /* Container for Dashboard */
+    .dashboard-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .dashboard-column {
+      flex: 1;
+      min-width: 30%;
+      max-width: 32%;
+      box-sizing: border-box;
+    }
+
+    .gauge-container, .radar-container {
+      width: 100%;
+      height: 300px;
+      margin-bottom: 20px;
+    }
+
+    /* Centered Title */
+    .dashboard-column h4 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+   <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4">
+  <div class="container-fluid">
+    <a class="navbar-brand d-flex align-items-center" href="/">
+  <img src="{{ url_for('static', filename='images/mona_logo.png') }}" alt="Mona HR" class="logo-img">
+</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+      <ul class="navbar-nav mb-2 mb-lg-0 gap-2">
+        <li class="nav-item">
+          <a class="nav-link" href="/form">Bắt đầu phỏng vấn</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/history">Lịch sử</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="/history">Lịch sử phỏng vấn</a>  <!-- Liên kết đến trang lịch sử -->
+    </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Đăng nhập</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-outline-primary rounded-pill px-3" href="/register">Đăng ký</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  <div class="container">
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+      <div class="d-flex align-items-center">
+        <img src="path_to_image.jpg" alt="Avatar">
+        <div>
+          <h2>{{ name }}</h2>
+          <p>Vị trí: {{ job_title }}</p>
+          <p>Phỏng vấn vào: {{ interview_date }}</p>
+        </div>
+      </div>
+     
+    </div>
+
+    <!-- Dashboard Sections -->
+    <div class="dashboard-container">
+      <!-- Cột 1: Biểu đồ điểm kỹ thuật -->
+      <div class="dashboard-column">
+        <h4>Technical Score</h4>
+        <div class="gauge-container" id="technical-score"></div>
+      </div>
+
+      <!-- Cột 2: Biểu đồ kỹ năng giao tiếp -->
+      <div class="dashboard-column">
+        <h4>Kỹ năng giao tiếp</h4>
+        <div class="radar-container" id="communication-skills"></div>
+      </div>
+
+      <!-- Cột 3: Đánh giá kỹ năng -->
+      <div class="dashboard-column">
+        <h5>Đánh giá tổng quan:</h5>
+        <p>{{ feedback }}</p>
+      </div>
+    </div>
+
+    <!-- AI Summary -->
+    <div class="dashboard-section summary">
+      <h4>AI Summary</h4>
+      <p>{{ ai_summary }}</p>
+    </div>
+
+    <!-- Video Response -->
+    <div class="dashboard-section video-response">
+      <h4>Video Response</h4>
+      <video controls>
+        <source src="{{ video_url }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <!-- Buttons -->
+    <div class="dashboard-section">
+      <a href="/langding" class="btn btn-primary">Quay lại</a>
+      <a href="/results" class="btn btn-primary">kêt quả</a>
+      <a href="{{ download_report_url }}" class="btn btn-success">Tải xuống báo cáo</a>
+    </div>
+  </div>
+
+  <!-- Thêm script để render biểu đồ từ Plotly -->
+  <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist@2.6.3/plotly.min.js"></script>
+  <script>
+    // Render biểu đồ gauge cho điểm kỹ thuật
+    const technicalScore = {{ technical_score_data | tojson }};
+    Plotly.newPlot('technical-score', technicalScore);
+
+    // Render biểu đồ radar cho kỹ năng giao tiếp
+    const communicationSkills = {{ communication_skills_data | tojson }};
+    Plotly.newPlot('communication-skills', communicationSkills);
+  </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Lịch sử Phỏng vấn</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="/"><img
+          src="{{ url_for('static', filename='images/AI.png') }}" alt="Mona HR" class="logo-img" /></a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"><span class="navbar-toggler-icon"></span></button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <ul class="navbar-nav mb-2 mb-lg-0 gap-2">
+          <li class="nav-item">
+            <a class="nav-link" href="/form">Bắt đầu phỏng vấn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/history">Lịch sử</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/cv_history">CV đã lưu</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/resume_form">Tạo CV mới</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container py-5">
+    <h1 class="text-center mb-5">Lịch Sử Phỏng Vấn</h1>
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Tên ứng viên</th>
+          <th>Vị trí</th>
+          <th>Ngày phỏng vấn</th>
+          <th>Câu hỏi & Câu trả lời</th>
+          <th>Đánh giá</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for interview in interviews %}
+        <tr>
+          <td>{{ interview.name }}</td>
+          <td>{{ interview.job_title }}</td>
+          <td>{{ interview.interview_date }}</td>
+          <td>
+            <ul>
+              {% for i in range(interview.questions|length) %}
+              {% if interview.answers|length > i %}
+              <li><strong>{{ interview.questions[i] }}:</strong> {{ interview.answers[i].answer }}</li>
+              {% else %}
+              <li><strong>{{ interview.questions[i] }}:</strong> Không có câu trả lời.</li>
+              {% endif %}
+              {% endfor %}
+            </ul>
+
+          </td>
+          <td>{{ interview.feedback if interview.feedback else "Chưa đánh giá" }}</td>
+          <td><a href="{{ url_for('dashboard', session_id=interview.session_id) }}" class="btn btn-info">Xem Báo Cáo</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>

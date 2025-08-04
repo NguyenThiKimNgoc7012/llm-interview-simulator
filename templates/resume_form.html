@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Resume Builder</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header .title {
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    header .buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    header .buttons button {
+      font-size: 16px;
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    header .buttons button:hover {
+      background-color: #ff8c00;
+      color: white;
+    }
+
+    .section-card {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .preview-box {
+      border: 3px solid black;
+      min-height: 90vh;
+      padding: 20px;
+      background: #fff;
+    }
+
+    .circle {
+      height: 12px;
+      width: 12px;
+      background-color: orangered;
+      border-radius: 50%;
+      display: inline-block;
+      margin: 0 2px;
+    }
+
+    /* Các lớp này sẽ giúp bố trí các trường nhập liệu thành các row và column */
+    .form-row {
+      display: flex;
+      gap: 16px;
+      /* Khoảng cách giữa các cột */
+      margin-bottom: 20px;
+    }
+
+    .form-column {
+      flex: 1;
+      /* Cho các cột có chiều rộng bằng nhau */
+    }
+
+    .form-column-full {
+      flex: 1 100%;
+      /* Cột chiếm toàn bộ chiều rộng */
+    }
+
+    .form-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .form-control {
+      border-radius: 8px;
+      border: 1px solid #e1e4e8;
+      padding: 12px;
+      font-size: 14px;
+      outline: none;
+      width: 100%;
+    }
+
+    .form-control:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+    }
+
+    /* Các lớp này sẽ giúp bố trí các trường nhập liệu thành các row và column */
+    .form-row {
+      display: flex;
+      gap: 16px;
+      /* Khoảng cách giữa các cột */
+      margin-bottom: 20px;
+    }
+
+    .form-column {
+      flex: 1;
+      /* Cho các cột có chiều rộng bằng nhau */
+    }
+
+    .form-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .form-control {
+      border-radius: 8px;
+      border: 1px solid #e1e4e8;
+      padding: 12px;
+      font-size: 14px;
+      outline: none;
+      width: 100%;
+    }
+
+    .form-control:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+    }
+
+    /* Styles for the section header */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+    }
+
+    .skills-title-input {
+      font-size: 1.125rem;
+      font-weight: 600;
+      border: none;
+      border-bottom: 2px solid transparent;
+      background: transparent;
+      text-transform: uppercase;
+      outline: none;
+      padding: 5px;
+    }
+
+    .skills-title-input:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+    }
+
+    .section-controls button {
+      font-size: 16px;
+      margin-left: 10px;
+    }
+
+    .section-controls button:hover {
+      cursor: pointer;
+    }
+
+    /* Chỉnh sửa các icon eye */
+    #eye-icon,
+    #eye-slash-icon {
+      font-size: 18px;
+    }
+
+    /* Hide section content initially when the eye icon is clicked */
+    .skills-content.hidden {
+      display: none;
+    }
+
+    /* Styles for the up and down buttons */
+    .up-down-icon {
+      font-size: 18px;
+    }
+
+    .eye-icon {
+      font-size: 18px;
+    }
+
+    /* Circle skill indicator */
+    .circle {
+      height: 12px;
+      width: 12px;
+      background-color: orangered;
+      border-radius: 50%;
+      display: inline-block;
+      margin: 0 2px;
+    }
+
+    /* Animation for moving up and down */
+    .skills-content.up {
+      transform: translateY(-10px);
+      /* Di chuyển lên 10px */
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .skills-content.down {
+      transform: translateY(10px);
+      /* Di chuyển xuống 10px */
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .section-card {
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      background-color: #f9f9f9;
+    }
+
+    .preview-box {
+      border: 3px solid black;
+      padding: 20px;
+      background: #fff;
+    }
+
+    .section-content {
+      margin-bottom: 20px;
+      color: #666;
+    }
+
+    .section-content a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    /* Styling for the preview box */
+    .preview-box {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+    }
+
+    .preview-section {
+      margin-bottom: 30px;
+    }
+
+    .preview-section p {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .info-container {
+      font-size: 16px;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    .info-container div {
+      margin-bottom: 8px;
+    }
+
+    .info-container strong {
+      font-size: 20px;
+      color: #ff4800;
+      /* Orange color for the name */
+    }
+
+    #preview_name {
+      font-size: 24px;
+      font-weight: 600;
+      color: #ff4800;
+      /* Match the color with image */
+    }
+
+    #preview_position,
+    #preview_phone,
+    #preview_email,
+    #preview_website,
+    #preview_location {
+      font-size: 16px;
+      color: #333;
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid #ddd;
+      margin: 10px 0;
+    }
+
+    /* Căn giữa tên */
+    #preview_name {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: #ff4800;
+      /* Màu cam cho tên */
+      margin-bottom: 10px;
+      /* Khoảng cách giữa tên và phần tiếp theo */
+    }
+
+    /* Căn giữa các thông tin khác */
+    #preview_position,
+    #preview_phone,
+    #preview_email {
+      display: inline-block;
+      font-size: 16px;
+      margin-right: 15px;
+      text-align: center;
+      /* Căn giữa */
+    }
+
+    /* Thêm dấu '|' giữa các phần tử */
+    #preview_position::after,
+    #preview_phone::after,
+    #preview_email::after {
+      content: " |";
+      margin-left: 10px;
+      /* Khoảng cách sau dấu '|' */
+    }
+
+    /* Loại bỏ dấu '|' sau phần tử cuối cùng */
+    #preview_website::after {
+      content: "";
+    }
+
+    /* Đảm bảo rằng tất cả các phần tử này nằm trong một container chung và căn giữa toàn bộ */
+    #preview_container {
+      text-align: center;
+      /* Căn giữa toàn bộ */
+    }
+
+    #preview_website {
+      display: inline-block;
+      max-width: 100%;
+      /* Đảm bảo không bị tràn ra ngoài */
+      white-space: nowrap;
+      /* Đảm bảo không xuống dòng */
+      overflow: hidden;
+      /* Ẩn phần thừa */
+      text-overflow: ellipsis;
+      /* Hiển thị dấu '...' nếu phần đường link quá dài */
+      word-wrap: break-word;
+      /* Cho phép bẻ dòng khi quá dài */
+      width: 100%;
+      /* Căn chỉnh độ rộng */
+      text-align: center;
+      /* Căn giữa */
+    }
+
+
+    /* Additional customization for the sections like WORK EXPERIENCE, PROJECT, etc. */
+  </style>
+</head>
+
+<body class="bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="/"><img
+          src="{{ url_for('static', filename='images/AI.png') }}" alt="Mona HR" class="logo-img" /></a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"><span class="navbar-toggler-icon"></span></button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <ul class="navbar-nav mb-2 mb-lg-0 gap-2">
+          <li class="nav-item">
+            <a class="nav-link" href="/form">Bắt đầu phỏng vấn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/history">Lịch sử</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/cv_history">CV đã lưu</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Header with title and buttons -->
+  <header class="container-fluid">
+    <h1 style="margin-left:40px">Xây dựng CV nổi bật với sự hỗ trợ từ AI</h1>
+
+    <div class="buttons">
+      <button class="btn btn-outline-danger" onclick="downloadResumeFE()"><i class="fas fa-download"></i> Download
+        Resume</button>
+      <button class="btn btn-outline-success" onclick="saveCV()"><i class="fas fa-save"></i> Save</button>
+    </div>
+  </header>
+  <div class="container-fluid mt-4">
+    <div class="row">
+      <!-- LEFT: Form -->
+      <div class="col-md-6">
+        <!-- Thông tin cơ bản -->
+        <div class="section-card">
+          <h5>Thông tin cá nhân</h5>
+
+          <!-- Name & Position Row -->
+          <div class="form-row">
+            <div class="form-column">
+              <label class="form-label" for="name">Tên đầy đủ</label>
+              <input id="name" class="form-control my-2" placeholder="Tên đầy đủ" autocomplete="name"
+                value="{{ cv_data.personal_info.name if cv_data and cv_data.personal_info.name else '' }}" />
+            </div>
+            <div class="form-column">
+              <label class="form-label" for="position">Vị trí ứng tuyển</label>
+              <input id="position" class="form-control my-2" placeholder="Vị trí ứng tuyển" name="position"
+                value="{{ cv_data.personal_info.position if cv_data and cv_data.personal_info.position else '' }}" />
+            </div>
+          </div>
+
+          <!-- Phone & Email Row -->
+          <div class="form-row">
+            <div class="form-column">
+              <label class="form-label" for="phone">Số điện thoại</label>
+              <input id="phone" class="form-control my-2" placeholder="Số điện thoại" autocomplete="tel"
+                value="{{ cv_data.personal_info.phone if cv_data and cv_data.personal_info.phone else '' }}" />
+            </div>
+            <div class="form-column">
+              <label class="form-label" for="email">Email</label>
+              <input id="email" class="form-control my-2" placeholder="Email" autocomplete="email"
+                value="{{ cv_data.personal_info.email if cv_data and cv_data.personal_info.email else '' }}" />
+            </div>
+          </div>
+
+          <!-- Website Row -->
+          <div class="form-row">
+            <div class="form-column-full">
+              <label class="form-label" for="website">Website (tuỳ chọn)</label>
+              <input id="website" class="form-control my-2" placeholder="Website (tuỳ chọn)" name="website"
+                value="{{ cv_data.personal_info.website if cv_data and cv_data.personal_info.website else '' }}" />
+            </div>
+          </div>
+
+          <h5>
+            🎯 Objective
+            <button type="button" id="ai-generate-btn" class="btn btn-sm btn-outline-primary float-end">✨ AI
+              Generate</button>
+          </h5>
+          <textarea id="objective" class="form-control mt-2" rows="2"
+            placeholder="Mục tiêu nghề nghiệp...">{{ cv_data.personal_info.objective if cv_data and cv_data.personal_info.objective else '' }}</textarea>
+          <div>
+            <h3>Mục Tiêu Nghề Nghiệp</h3>
+            <div id="preview_objective">Mục tiêu nghề nghiệp sẽ hiển thị ở đây...</div>
+          </div>
+        </div>
+        <!-- Work Experience -->
+        <div class="section-card" id="workExperienceSection">
+          <!-- Section Header with editable title and control buttons -->
+          <div class="section-header">
+            <div class="section-title">
+              <label for="workExperienceTitle" class="form-label">💼</label>
+              <input id="workExperienceTitle" class="skills-title-input" type="text" value="Kinh nghiệm làm việc"
+                oninput="updateTitle()" />
+            </div>
+            <div class="section-controls">
+              <!-- Mũi tên lên -->
+              <button type="button" class="btn btn-sm btn-outline-secondary" onclick="moveSectionUp(this)"><i
+                  class="fa-solid fa-arrow-up"></i></button>
+              <!-- Mũi tên xuống -->
+              <button type="button" class="btn btn-sm btn-outline-secondary" onclick="moveSectionDown(this)"><i
+                  class="fa-solid fa-arrow-down"></i></button>
+              <!-- Ẩn/Hiện nội dung -->
+              <button type="button" class="btn btn-sm btn-outline-secondary" onclick="toggleVisibility(this)"><i
+                  id="eye-icon" class="fa-regular fa-eye"></i><i id="eye-slash-icon" class="fa-solid fa-eye-slash"
+                  style="display:none;"></i></button>
+            </div>
+          </div>
+
+          <!-- Work Experience Form -->
+          <div class="form-row">
+            <div class="form-column">
+              <label class="form-label" for="company">Công ty</label>
+              <input id="company" class="form-control my-2" placeholder="Company" autocomplete="organization"
+                value="{{ cv_data.work_experience.company if cv_data and cv_data.work_experience.company else '' }}" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-column">
+              <label class="form-label" for="job_date">Ngày làm việc</label>
+              <input id="job_date" class="form-control my-2" placeholder="Date (e.g. Mar 2024)"
+                value="{{ cv_data.work_experience.job_date if cv_data and cv_data.work_experience.job_date else '' }}" />
+            </div>
+
+            <div class="form-column">
+              <label class="form-label" for="job_title">Chức danh</label>
+              <input id="job_title" class="form-control my-2" placeholder="Job Title"
+                value="{{ cv_data.work_experience.job_title if cv_data and cv_data.work_experience.job_title else '' }}" />
+            </div>
+          </div>
+
+          <div class="form-column">
+            <label class="form-label" for="job_desc_input">Mô tả công việc</label>
+            <textarea id="job_desc_input" class="form-control mt-2" rows="3"
+              placeholder="Mô tả công việc...">{{ cv_data.work_experience.work_description if cv_data and cv_data.work_experience.work_description else '' }}</textarea>
+
+            <button type="button" id="ai-generate-btn-experience" class="btn btn-sm btn-outline-primary float-end"
+              onclick="generateExperience()">✨ AI Generate</button>
+
+            <label class="form-label mt-3" for="generated_experience">Kinh Nghiệm Làm Việc (do AI gợi ý)</label>
+            <textarea id="generated_experience" class="form-control mt-2" rows="3"
+              placeholder="Kinh nghiệm làm việc sẽ được tạo bởi AI..."></textarea>
+
+            <h3 style="margin: 5px;">Kết quả xem trước</h3>
+            <div id="preview_experience">Kinh nghiệm làm việc sẽ hiển thị ở đây...</div>
+          </div>
+
+          <div class="text-start">
+            <button type="button" class="btn btn-outline-info btn-sm" onclick="addExperience()" style="margin: 10px;">+
+              Thêm kinh nghiệm</button>
+          </div>
+        </div>
+        <!-- Education -->
+        <div class="section-card">
+          <div class="section-header">
+            <div class="section-title">
+              <label for="workExperienceTitle" class="form-label">💼</label>
+              <input id="workEducation" class="skills-title-input" type="text" value="EDUCATION"
+                oninput="updateTitle()" />
+            </div>
+            <div class="section-controls">
+              <!-- Mũi tên lên -->
+              <button type="button" class="btn btn-sm btn-outline-secondary" onclick="moveSectionUp(this)"><i
+                  class="fa-solid fa-arrow-up"></i></button>
+              <!-- Mũi tên xuống -->
+              <button type="button" class="btn btn-sm btn-outline-secondary" onclick="moveSectionDown(this)"><i
+                  class="fa-solid fa-arrow-down"></i></button>
+              <!-- Ẩn/Hiện nội dung -->
+              <button type="button" class="btn btn-sm btn-outline-secondary" onclick="toggleVisibility(this)"><i
+                  id="eye-icon" class="fa-regular fa-eye"></i><i id="eye-slash-icon" class="fa-solid fa-eye-slash"
+                  style="display:none;"></i></button>
+            </div>
+          </div>
+
+          <!-- Education Form -->
+          <div class="form-row">
+            <div class="form-column">
+              <label class="form-label" for="school">Trường</label>
+              <input class="form-control my-2" placeholder="Trường" name="school" id="school"
+                value="{{ cv_data.education.school if cv_data and cv_data.education.school else '' }}" />
+            </div>
+            <div class="form-column">
+              <label class="form-label" for="edu_date">Ngày tốt nghiệp</label>
+              <input class="form-control my-2" placeholder="Ngày tốt nghiệp (e.g. 2025)" name="edu_date" id="edu_date"
+                value="{{ cv_data.education.graduation_date if cv_data and cv_data.education.graduation_date else '' }}" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-column">
+              <label class="form-label" for="major">Chuyên ngành</label>
+              <input class="form-control my-2" placeholder="Chuyên ngành" name="major" id="major"
+                value="{{ cv_data.education.major if cv_data and cv_data.education.major else '' }}" />
+            </div>
+            <div class="form-column">
+              <label class="form-label" for="gpa">GPA</label>
+              <input class="form-control my-2" placeholder="GPA" name="gpa" id="gpa"
+                value="{{ cv_data.education.gpa if cv_data and cv_data.education.gpa else '' }}" />
+            </div>
+          </div>
+
+
+          <div class="text-start">
+            <button type="button" class="btn btn-outline-info btn-sm" onclick="addExperience()">+ Thêm Trường Đại
+              Học</button>
+          </div>
+        </div>
+
+        <!-- Projects -->
+        <div class="section-card">
+          <div class="section-header">
+            <div class="section-title">
+              <label for="workExperienceTitle" class="form-label">💼</label>
+              <input id="workProject" class="skills-title-input" type="text" value="PROJECT" oninput="updateTitle()" />
+            </div>
+            <div class="section-controls">
+              <!-- Mũi tên lên -->
+              <button type="button" class="btn btn-sm btn-outline-secondary" onclick="moveSectionUp(this)"><i
+                  class="fa-solid fa-arrow-up"></i></button>
+              <!-- Mũi tên xuống -->
+              <button type="button" class="btn btn-sm btn-outline-secondary" onclick="moveSectionDown(this)"><i
+                  class="fa-solid fa-arrow-down"></i></button>
+              <!-- Ẩn/Hiện nội dung -->
+              <button type="button" class="btn btn-sm btn-outline-secondary" onclick="toggleVisibility(this)"><i
+                  id="eye-icon" class="fa-regular fa-eye"></i><i id="eye-slash-icon" class="fa-solid fa-eye-slash"
+                  style="display:none;"></i></button>
+            </div>
+          </div>
+          <!-- Project Form -->
+          <div class="form-row">
+            <div class="form-column">
+              <label class="form-label" for="project_name">Tên dự án</label>
+              <input class="form-control my-2" placeholder="Tên dự án" name="project_name" id="project_name"
+                value="{{ cv_data.project.name if cv_data and cv_data.project.name else '' }}" />
+            </div>
+
+            <div class="form-column">
+              <label class="form-label" for="project_date">Thời gian</label>
+              <input class="form-control my-2" placeholder="Thời gian (e.g. Summer 2024)" name="project_date"
+                id="project_date" value="{{ cv_data.project.date if cv_data and cv_data.project.date else '' }}" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-column-full">
+              <label class="form-label" for="project_desc">Mô tả dự án</label>
+              <textarea class="form-control mt-2" rows="2" placeholder="Mô tả dự án..."
+                id="project_desc">{{ cv_data.project.description if cv_data and cv_data.project.description else '' }}</textarea>
+            </div>
+          </div>
+
+          <div class="text-start">
+            <button type="button" class="btn btn-outline-info btn-sm" onclick="addExperience()">+ Thêm Dự Án</button>
+          </div>
+        </div>
+
+        <!-- Skills -->
+        <div class="section-card" id="skillsSection">
+          <!-- Section Header with editable title and control buttons -->
+          <div class="section-header">
+            <div class="section-title">
+              <label for="skillsTitle" class="form-label">🛠</label>
+              <input id="skillsTitle" class="skills-title-input" type="text" value="Skills" oninput="updateTitle()" />
+            </div>
+            <div class="section-controls">
+              <!-- Mũi tên lên -->
+              <button type="button" class="btn btn-sm btn-outline-secondary" onclick="moveSectionUp(this)"><i
+                  class="fa-solid fa-arrow-up"></i></button>
+              <!-- Mũi tên xuống -->
+              <button type="button" class="btn btn-sm btn-outline-secondary" onclick="moveSectionDown(this)"><i
+                  class="fa-solid fa-arrow-down"></i></button>
+              <!-- Ẩn/Hiện nội dung -->
+              <button type="button" class="btn btn-sm btn-outline-secondary" onclick="toggleVisibility()"><i
+                  id="eye-icon" class="fa-regular fa-eye"></i><i id="eye-slash-icon" class="fa-solid fa-eye-slash"
+                  style="display:none;"></i></button>
+            </div>
+          </div>
+
+          <!-- Skills List -->
+          <div class="skills-content">
+            <textarea class="form-control my-2" rows="2"
+              placeholder="Liệt kê các kỹ năng...">{{ cv_data.skills.general if cv_data and cv_data.skills.general else '' }}</textarea>
+
+            <p class="mt-3 mb-1">
+              <strong>Featured Skills (Optional)</strong>
+            </p>
+
+            <!-- Featured Skills -->
+            <div class="row">
+              <div class="col-6 mb-2">
+                <label class="form-label" for="Featured_Skills1">Featured Skill 1</label>
+                <input id="Featured_Skills1" class="form-control" placeholder="Featured Skill 1"
+                  value="{{ cv_data.skills.featured_skill_1 if cv_data and cv_data.skills.featured_skill_1 else '' }}" />
+              </div>
+              <div class="col-6 pt-2">
+                <span class="circle"></span><span class="circle"></span><span class="circle"></span><span
+                  class="circle"></span><span class="circle"></span>
+              </div>
+
+              <div class="col-6 mb-2">
+                <label class="form-label" for="Featured_Skills2">Featured Skill 2</label>
+                <input id="Featured_Skills2" class="form-control" placeholder="Featured Skill 2"
+                  value="{{ cv_data.skills.featured_skill_2 if cv_data and cv_data.skills.featured_skill_2 else '' }}" />
+              </div>
+              <div class="col-6 pt-2">
+                <span class="circle"></span><span class="circle"></span><span class="circle"></span><span
+                  class="circle"></span><span class="circle"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Preview -->
+      <div class="col-md-6">
+        <div class="preview-box">
+          <!-- Thông tin cơ bản -->
+          <div class="text-center text-primary" id="preview_name" class="section-content"></div>
+          <div id="preview_position" class="section-content">Vị trí ứng tuyển...</div>
+          <div id="preview_phone" class="section-content">Số điện thoại...</div>
+          <div id="preview_email" class="section-content">Email...</div>
+          <div id="preview_website" class="section-content">Website...</div>
+
+          <!-- Objective -->
+          <hr class="line-divider" />
+          <p>
+            <strong>OBJECTIVE</strong>
+          </p>
+          <div id="preview_objective1" class="section-content">Mục tiêu nghề nghiệp...</div>
+          <hr class="line-divider" />
+          <p>
+          <p><strong>WORK EXPERIENCE</strong></p>
+          <div id="preview_work_experience" class="section-content">
+            <div id="preview_company">Công ty...</div>
+            <div id="preview_job_date">Ngày làm việc...</div>
+            <div id="preview_job_title">Chức danh...</div>
+
+            <div id="preview_generated_experience">Kinh nghiệm làm việc sẽ hiển thị ở đây...</div>
+            <!-- Đây là nơi kết quả AI gợi ý sẽ xuất hiện -->
+          </div>
+
+
+          <hr class="line-divider" />
+          <p>
+            <strong>PROJECT</strong>
+          </p>
+          <div id="preview_project" class="section-content">
+            <div id="preview_project_name">Tên dự án...</div>
+            <div id="preview_project_date">Thời gian...</div>
+            <div id="preview_project_desc">Mô tả dự án...</div>
+          </div>
+          <hr class="line-divider" />
+          <p>
+            <strong>EDUCATION</strong>
+          </p>
+          <div id="preview_education" class="section-content">
+            <div id="preview_school">Trường học...</div>
+            <div id="preview_edu_date">Ngày tốt nghiệp...</div>
+            <div id="preview_major">Chuyên ngành...</div>
+            <div id="preview_gpa">GPA...</div>
+            <div id="preview_additional_info">Thông tin bổ sung...</div>
+          </div>
+          <hr class="line-divider" />
+          <p>
+            <strong>SKILLS</strong>
+          </p>
+          <div id="preview_skills" class="section-content">...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 10000">
+    <div id="toastMsg" class="toast align-items-center text-white bg-danger border-0" role="alert">
+      <div class="d-flex">
+        <div class="toast-body" id="toastBody">Vui lòng điền thông tin bắt buộc.</div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/resume_form.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

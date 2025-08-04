@@ -1,0 +1,319 @@
+[
+  {
+    "job_title": "Fullstack Developer",
+    "company": "Tech Corp",
+    "job_date": "Jan 2022 - Present",
+    "job_desc": "Develop and maintain full-stack web applications. Responsible for both front-end and back-end development, ensuring performance optimization and user-friendly interfaces."
+  },
+  {
+    "job_title": "AI Engineer",
+    "company": "AI Solutions",
+    "job_date": "Feb 2021 - Dec 2022",
+    "job_desc": "Worked on developing AI models and algorithms for data analysis and pattern recognition. Optimized machine learning pipelines to improve the performance of AI systems in real-time applications."
+  },
+  {
+    "job_title": "An toàn thông tin",
+    "company": "SecureNet",
+    "job_date": "Aug 2020 - Dec 2021",
+    "job_desc": "Implemented security measures to protect IT infrastructure, including penetration testing, vulnerability assessments, and developing firewalls and intrusion detection systems."
+  },
+  {
+    "job_title": "Back-end Developer",
+    "company": "DevWorks",
+    "job_date": "Jan 2020 - Oct 2021",
+    "job_desc": "Designed and developed server-side logic, database management, and APIs. Worked closely with front-end developers to integrate user-facing elements with server-side logic."
+  },
+  {
+    "job_title": "Big Data Engineer",
+    "company": "DataMax",
+    "job_date": "Jul 2019 - Jun 2021",
+    "job_desc": "Developed big data processing solutions using Hadoop and Spark. Designed and maintained ETL pipelines and worked on optimizing large-scale data storage and processing."
+  },
+  {
+    "job_title": "Business Analyst",
+    "company": "Business Insight",
+    "job_date": "Nov 2020 - Present",
+    "job_desc": "Gathered and analyzed business requirements, created process maps, and provided data-driven insights to support decision-making. Worked on reporting and improving operational processes."
+  },
+  {
+    "job_title": "Business Intelligence Analyst",
+    "company": "DataViz",
+    "job_date": "Mar 2020 - Present",
+    "job_desc": "Built data visualizations, dashboards, and reports to help organizations make informed business decisions. Worked with SQL and Power BI to analyze and present business performance data."
+  },
+  {
+    "job_title": "Bất động sản",
+    "company": "Real Estate Co.",
+    "job_date": "Jan 2019 - Present",
+    "job_desc": "Conducted property valuations, assisted clients in purchasing and selling real estate, and developed market research reports. Negotiated deals and provided advisory services."
+  },
+  {
+    "job_title": "Cloud Computing Specialist",
+    "company": "CloudTech",
+    "job_date": "Apr 2020 - Dec 2021",
+    "job_desc": "Managed and optimized cloud infrastructure for clients. Implemented and maintained solutions using AWS, Azure, and Google Cloud to ensure scalability, security, and cost efficiency."
+  },
+  {
+    "job_title": "Computer Science",
+    "company": "Tech University",
+    "job_date": "Sep 2018 - May 2020",
+    "job_desc": "Worked as a teaching assistant for computer science courses, helped students with coding assignments, and assisted in research on machine learning and data structures."
+  },
+  {
+    "job_title": "Fullstack Developer",
+    "company": "Tech Corp",
+    "job_date": "Tháng 1, 2022 - Hiện tại",
+    "job_desc": "Phát triển và duy trì các ứng dụng web full-stack. Chịu trách nhiệm phát triển cả front-end và back-end, đảm bảo tối ưu hóa hiệu suất và giao diện người dùng dễ sử dụng."
+  },
+  {
+    "job_title": "AI Engineer",
+    "company": "AI Solutions",
+    "job_date": "Tháng 2, 2021 - Tháng 12, 2022",
+    "job_desc": "Phát triển các mô hình AI và thuật toán cho phân tích dữ liệu và nhận diện mẫu. Tối ưu hóa các pipeline học máy để cải thiện hiệu suất của các hệ thống AI trong các ứng dụng thời gian thực."
+  },
+  {
+    "job_title": "An toàn thông tin",
+    "company": "SecureNet",
+    "job_date": "Tháng 8, 2020 - Tháng 12, 2021",
+    "job_desc": "Triển khai các biện pháp bảo mật để bảo vệ hạ tầng IT, bao gồm kiểm thử thâm nhập, đánh giá lỗ hổng và phát triển các hệ thống tường lửa và phát hiện xâm nhập."
+  },
+  {
+    "job_title": "Back-end Developer",
+    "company": "DevWorks",
+    "job_date": "Tháng 1, 2020 - Tháng 10, 2021",
+    "job_desc": "Thiết kế và phát triển logic phía server, quản lý cơ sở dữ liệu và API. Làm việc chặt chẽ với các nhà phát triển front-end để tích hợp các yếu tố giao diện người dùng với logic phía server."
+  },
+  {
+    "job_title": "Big Data Engineer",
+    "company": "DataMax",
+    "job_date": "Tháng 7, 2019 - Tháng 6, 2021",
+    "job_desc": "Phát triển các giải pháp xử lý Big Data sử dụng Hadoop và Spark. Thiết kế và duy trì các pipeline ETL và làm việc tối ưu hóa lưu trữ và xử lý dữ liệu quy mô lớn."
+  },
+  {
+    "job_title": "Business Analyst",
+    "company": "Business Insight",
+    "job_date": "Tháng 11, 2020 - Hiện tại",
+    "job_desc": "Thu thập và phân tích yêu cầu kinh doanh, tạo bản đồ quy trình và cung cấp các thông tin dựa trên dữ liệu để hỗ trợ ra quyết định. Làm việc trên báo cáo và cải tiến các quy trình vận hành."
+  },
+  {
+    "job_title": "Business Intelligence Analyst",
+    "company": "DataViz",
+    "job_date": "Tháng 3, 2020 - Hiện tại",
+    "job_desc": "Xây dựng các biểu đồ dữ liệu, dashboard và báo cáo giúp các tổ chức đưa ra các quyết định kinh doanh thông minh. Làm việc với SQL và Power BI để phân tích và trình bày dữ liệu hiệu suất kinh doanh."
+  },
+  {
+    "job_title": "Bất động sản",
+    "company": "Real Estate Co.",
+    "job_date": "Tháng 1, 2019 - Hiện tại",
+    "job_desc": "Thực hiện đánh giá giá trị tài sản, hỗ trợ khách hàng mua và bán bất động sản, và phát triển các báo cáo nghiên cứu thị trường. Đàm phán các giao dịch và cung cấp dịch vụ tư vấn."
+  },
+  {
+    "job_title": "Cloud Computing Specialist",
+    "company": "CloudTech",
+    "job_date": "Tháng 4, 2020 - Tháng 12, 2021",
+    "job_desc": "Quản lý và tối ưu hóa hạ tầng đám mây cho khách hàng. Triển khai và duy trì các giải pháp sử dụng AWS, Azure và Google Cloud để đảm bảo khả năng mở rộng, bảo mật và tiết kiệm chi phí."
+  },
+  {
+    "job_title": "Computer Science",
+    "company": "Tech University",
+    "job_date": "Tháng 9, 2018 - Tháng 5, 2020",
+    "job_desc": "Làm trợ giảng cho các khóa học khoa học máy tính, hỗ trợ học sinh với các bài tập lập trình và tham gia nghiên cứu về học máy và cấu trúc dữ liệu."
+  },
+  {
+    "job_title": "Ngân hàng",
+    "company": "Bank of Finance",
+    "job_date": "Tháng 1, 2021 - Hiện tại",
+    "job_desc": "Phân tích tài chính, xây dựng các chiến lược đầu tư và quản lý rủi ro tài chính cho ngân hàng. Đảm bảo việc tuân thủ các quy định tài chính và phát triển các dịch vụ tài chính hiệu quả."
+  },
+  {
+    "job_title": "Pháp lý",
+    "company": "Legal Advisors",
+    "job_date": "Tháng 6, 2020 - Hiện tại",
+    "job_desc": "Cung cấp dịch vụ pháp lý cho doanh nghiệp và cá nhân, bảo vệ quyền lợi hợp pháp và giải quyết các tranh chấp liên quan đến hợp đồng và sở hữu trí tuệ."
+  },
+  {
+    "job_title": "Quản lý nhân sự",
+    "company": "HR Solutions",
+    "job_date": "Tháng 3, 2019 - Hiện tại",
+    "job_desc": "Quản lý tuyển dụng, đào tạo và phát triển nhân viên. Tối ưu hóa quy trình nhân sự và phát triển các chính sách nhân sự hiệu quả cho tổ chức."
+  },
+  {
+    "job_title": "Quản trị khách sạn",
+    "company": "Luxury Hotels",
+    "job_date": "Tháng 4, 2021 - Hiện tại",
+    "job_desc": "Quản lý các hoạt động của khách sạn, đảm bảo chất lượng dịch vụ và sự hài lòng của khách hàng. Đảm bảo hoạt động của khách sạn diễn ra suôn sẻ và đáp ứng các tiêu chuẩn ngành."
+  },
+  {
+    "job_title": "Software testing",
+    "company": "Test Pro",
+    "job_date": "Tháng 8, 2020 - Hiện tại",
+    "job_desc": "Kiểm tra phần mềm để đảm bảo chất lượng sản phẩm. Phát hiện và báo cáo lỗi phần mềm, đảm bảo phần mềm hoạt động đúng như yêu cầu của khách hàng."
+  },
+  {
+    "job_title": "Sư phạm",
+    "company": "EduTech Academy",
+    "job_date": "Tháng 6, 2020 - Hiện tại",
+    "job_desc": "Giảng dạy và phát triển các chương trình học cho học sinh. Sử dụng các phương pháp giảng dạy sáng tạo để nâng cao chất lượng giáo dục và thúc đẩy học sinh phát triển toàn diện."
+  },
+  {
+    "job_title": "Sản xuất và Quản lý sản xuất",
+    "company": "Manufacturing Solutions",
+    "job_date": "Tháng 1, 2019 - Hiện tại",
+    "job_desc": "Quản lý quy trình sản xuất, tối ưu hóa hiệu quả và giảm chi phí sản xuất. Đảm bảo chất lượng sản phẩm và cải thiện các quy trình vận hành trong nhà máy."
+  },
+  {
+    "job_title": "Tài chính và Kế toán",
+    "company": "Financial Advisors",
+    "job_date": "Tháng 5, 2021 - Hiện tại",
+    "job_desc": "Quản lý tài chính, thực hiện báo cáo tài chính, và giúp doanh nghiệp đưa ra các quyết định tài chính dựa trên các phân tích tài chính chính xác."
+  },
+  {
+    "job_title": "UX/UI Design",
+    "company": "DesignWorks",
+    "job_date": "Tháng 9, 2020 - Hiện tại",
+    "job_desc": "Thiết kế giao diện người dùng và trải nghiệm người dùng cho các ứng dụng và website. Đảm bảo các sản phẩm thiết kế dễ sử dụng, trực quan và phù hợp với nhu cầu người dùng."
+  },
+  {
+    "job_title": "Y tế",
+    "company": "Healthcare Providers",
+    "job_date": "Tháng 7, 2021 - Hiện tại",
+    "job_desc": "Cung cấp dịch vụ chăm sóc sức khỏe cho bệnh nhân, làm việc với đội ngũ y tế để phát triển các kế hoạch điều trị và hỗ trợ quá trình phục hồi của bệnh nhân."
+  },
+  
+  {
+    "job_title": "Fullstack Developer",
+    "company": "Tech Innovations",
+    "job_date": "Tháng 1, 2020 - Hiện tại",
+    "job_desc": "Xây dựng các ứng dụng web toàn diện, tối ưu hóa hiệu suất và khả năng mở rộng. Quản lý front-end và back-end của ứng dụng để cung cấp các giải pháp sáng tạo và hiệu quả."
+  },
+  {
+    "job_title": "AI Engineer",
+    "company": "AI Technologies",
+    "job_date": "Tháng 6, 2020 - Hiện tại",
+    "job_desc": "Nghiên cứu và phát triển các hệ thống AI tiên tiến, cải thiện khả năng học máy và ứng dụng AI vào các giải pháp thực tế để tối ưu hóa quy trình kinh doanh và mang lại giá trị lớn cho công ty."
+  },
+  {
+    "job_title": "An toàn thông tin",
+    "company": "CyberGuard Security",
+    "job_date": "Tháng 3, 2020 - Hiện tại",
+    "job_desc": "Bảo vệ hệ thống và dữ liệu khỏi các mối đe dọa bên ngoài, phát triển các biện pháp phòng chống an ninh và giám sát các mối đe dọa tiềm ẩn trong mạng lưới."
+  },
+  {
+    "job_title": "Back-end Developer",
+    "company": "Backend Solutions",
+    "job_date": "Tháng 5, 2020 - Hiện tại",
+    "job_desc": "Xây dựng các hệ thống back-end mạnh mẽ, tối ưu hóa hiệu suất và khả năng mở rộng, đồng thời cung cấp dịch vụ ổn định cho người dùng cuối."
+  },
+  {
+    "job_title": "Big Data Engineer",
+    "company": "DataFlow Technologies",
+    "job_date": "Tháng 7, 2020 - Hiện tại",
+    "job_desc": "Phát triển các giải pháp Big Data để xử lý và phân tích lượng dữ liệu lớn, khai thác giá trị thông qua việc phát hiện mẫu dữ liệu và dự đoán xu hướng thị trường."
+  },
+  {
+    "job_title": "Business Analyst",
+    "company": "Business Insights",
+    "job_date": "Tháng 6, 2019 - Hiện tại",
+    "job_desc": "Phân tích nhu cầu của doanh nghiệp, cung cấp các giải pháp sáng tạo giúp tối ưu hóa quy trình và đạt được mục tiêu kinh doanh."
+  },
+  {
+    "job_title": "Business Intelligence Analyst",
+    "company": "DataVision Analytics",
+    "job_date": "Tháng 4, 2020 - Hiện tại",
+    "job_desc": "Phân tích và khai thác dữ liệu để cung cấp các báo cáo chi tiết, giúp các nhà quản lý đưa ra các quyết định chính xác hơn và cải thiện hiệu suất kinh doanh."
+  },
+  {
+    "job_title": "Bất động sản",
+    "company": "RealEstate Pros",
+    "job_date": "Tháng 8, 2020 - Hiện tại",
+    "job_desc": "Giúp khách hàng tìm kiếm và đầu tư vào các tài sản có giá trị lâu dài, tối ưu hóa lợi nhuận và giảm thiểu rủi ro tài chính trong các giao dịch bất động sản."
+  },
+  {
+    "job_title": "Cloud Computing Specialist",
+    "company": "CloudWorks",
+    "job_date": "Tháng 6, 2021 - Hiện tại",
+    "job_desc": "Phát triển và duy trì các giải pháp hạ tầng đám mây hiệu quả, giúp các tổ chức triển khai các giải pháp đám mây linh hoạt và tối ưu hóa chi phí vận hành."
+  },
+  {
+    "job_title": "Computer Science",
+    "company": "Tech Innovators",
+    "job_date": "Tháng 5, 2020 - Hiện tại",
+    "job_desc": "Phát triển các giải pháp công nghệ sáng tạo, tối ưu hóa quy trình và hiệu suất trong các hệ thống phần mềm."
+  },
+  {
+    "job_title": "Data Scientist",
+    "company": "DataLab",
+    "job_date": "Tháng 3, 2021 - Hiện tại",
+    "job_desc": "Sử dụng dữ liệu để phân tích và đưa ra các quyết định thông minh, giúp các doanh nghiệp tối ưu hóa chiến lược và hoạt động kinh doanh."
+  },
+  {
+    "job_title": "Du lịch – Lữ hành",
+    "company": "Travel Adventures",
+    "job_date": "Tháng 2, 2020 - Hiện tại",
+    "job_desc": "Cung cấp dịch vụ du lịch tuyệt vời cho khách hàng, tạo ra những trải nghiệm du lịch không thể quên và giúp phát triển ngành công nghiệp du lịch bền vững."
+  },
+  {
+    "job_title": "Frontend Developer",
+    "company": "Tech Creators",
+    "job_date": "Tháng 1, 2020 - Hiện tại",
+    "job_desc": "Phát triển giao diện người dùng, tối ưu hóa trải nghiệm người dùng và giúp các doanh nghiệp tạo ra các sản phẩm web chất lượng cao, dễ sử dụng."
+  },
+  {
+    "job_title": "IoT Developer",
+    "company": "Smart Devices",
+    "job_date": "Tháng 4, 2020 - Hiện tại",
+    "job_desc": "Phát triển các hệ thống IoT thông minh giúp cải thiện cuộc sống con người và nâng cao hiệu quả hoạt động trong các lĩnh vực công nghiệp, y tế và gia đình."
+  },
+  {
+    "job_title": "Kỹ thuật xây dựng",
+    "company": "Building Corp",
+    "job_date": "Tháng 6, 2021 - Hiện tại",
+    "job_desc": "Tham gia vào việc xây dựng các công trình chất lượng cao, an toàn và bền vững, đồng thời giúp tối ưu hóa quy trình thi công và quản lý dự án hiệu quả."
+  },
+  {
+    "job_title": "Logistics Manager",
+    "company": "Supply Chain Solutions",
+    "job_date": "Tháng 3, 2020 - Hiện tại",
+    "job_desc": "Cải thiện quy trình logistics, giảm chi phí vận chuyển và tối ưu hóa chuỗi cung ứng để mang lại hiệu quả và tiết kiệm cho doanh nghiệp."
+  },
+  {
+    "job_title": "Lawyer",
+    "company": "Legal Associates",
+    "job_date": "Tháng 8, 2019 - Hiện tại",
+    "job_desc": "Cung cấp dịch vụ pháp lý cho khách hàng, bảo vệ quyền lợi hợp pháp và giải quyết các tranh chấp trong các lĩnh vực hợp đồng, sở hữu trí tuệ và luật hình sự."
+  },
+  {
+    "job_title": "Machine Learning Engineer",
+    "company": "AI Technologies",
+    "job_date": "Tháng 5, 2020 - Hiện tại",
+    "job_desc": "Phát triển các mô hình học máy tiên tiến giúp giải quyết các bài toán thực tế, nâng cao khả năng tự động hóa và tối ưu hóa quy trình."
+  },
+  {
+    "job_title": "Marketing Manager",
+    "company": "Market Solutions",
+    "job_date": "Tháng 6, 2021 - Hiện tại",
+    "job_desc": "Xây dựng và thực hiện các chiến lược marketing hiệu quả, giúp nâng cao nhận thức thương hiệu và thúc đẩy doanh số bán hàng cho doanh nghiệp."
+  },
+  {
+    "job_title": "Mobile Developer",
+    "company": "App Creators",
+    "job_date": "Tháng 7, 2020 - Hiện tại",
+    "job_desc": "Tạo ra các ứng dụng di động mạnh mẽ, dễ sử dụng và tương thích với nhiều thiết bị để đáp ứng nhu cầu người dùng và mang lại trải nghiệm tuyệt vời."
+  },
+  {
+    "job_title": "Ngân hàng",
+    "company": "Bank of Finance",
+    "job_date": "Tháng 1, 2021 - Hiện tại",
+    "job_desc": "Phân tích tài chính, xây dựng các chiến lược đầu tư và quản lý rủi ro tài chính cho ngân hàng. Đảm bảo việc tuân thủ các quy định tài chính và phát triển các dịch vụ tài chính hiệu quả."
+  },
+  {
+    "job_title": "Pháp lý",
+    "company": "Legal Advisors",
+    "job_date": "Tháng 6, 2020 - Hiện tại",
+    "job_desc": "Cung cấp dịch vụ pháp lý cho doanh nghiệp và cá nhân, bảo vệ quyền lợi hợp pháp và giải quyết các tranh chấp liên quan đến hợp đồng và sở hữu trí tuệ."
+  }
+]
+  
+
+
+

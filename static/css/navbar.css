@@ -1,0 +1,14 @@
+.logo-img {
+  height: 60px;
+  width: auto;
+  max-width: 190px;
+  object-fit: contain;
+  display: block;
+  }
+  .navbar {
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+    position: fixed;
+    z-index: 1000;
+  }
+

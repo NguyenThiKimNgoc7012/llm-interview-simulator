@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>MONA.HR - Kết quả đánh giá</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/panda.png') }}" type="image/png" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+      /* Toàn bộ body */
+      body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f7fa;
+        color: #343a40;
+        line-height: 1.7;
+      }
+      
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+      
+      /* Thông tin ứng viên */
+      .candidate-info {
+        margin-bottom: 40px;
+      }
+      
+      .candidate-info .profile-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+      
+      .candidate-info .profile-header img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-right: 20px;
+      }
+      
+      .candidate-info .profile-header h3 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color:rgb(22, 22, 22);
+        margin-bottom: 5px;
+      }
+      
+      .candidate-info .profile-header p {
+        font-size: 1rem;
+        color: #6c757d;
+      }
+      
+      /* Thông tin chi tiết ứng viên */
+      .candidate-info .details p {
+        margin-bottom: 15px;
+        color: #495057;
+        font-size: 1.1rem;
+      }
+      
+      .candidate-info .details p strong {
+        color:rgb(11, 12, 12);
+        font-weight: 600;
+      }
+      
+      /* Đánh giá tổng quan */
+      .evaluation-block {
+        margin-top: 40px;
+      }
+      
+      .evaluation-block h5 {
+        color:rgb(26, 28, 29);
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+      }
+      
+      .evaluation-block p {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        margin-bottom: 15px;
+        color: #495057;
+      }
+      
+      /* Danh sách câu hỏi & trả lời */
+      .qa-list {
+        margin-top: 40px;
+      }
+      
+      .qa-list .list-group-item {
+        background-color: #f9f9f9;
+        margin-bottom: 15px;
+        padding: 20px;
+      }
+      
+      .qa-list .list-group-item:hover {
+        background-color: #f1f1f1;
+      }
+      
+      .qa-list .list-group-item strong {
+        color:rgb(14, 14, 15);
+        font-size: 1.1rem;
+      }
+      
+      /* Thẻ hr */
+      hr {
+        border: 0;
+        border-top: 3px solid rgb(200, 202, 205);
+        margin: 30px 0;
+      }
+      
+      /* Biểu tượng */
+      .icon {
+        color: #007bff;
+        margin-right: 10px;
+        font-size: 20px;
+      }
+      .suggestion-content {
+    display: none; /* Ẩn phần gợi ý mặc định */
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+      color: #000000; 
+}
+
+.toggle-suggestion {
+   
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+.toggle-suggestion:hover {
+    background-color: #0056b3;
+}
+
+.suggestion-box {
+    margin-top: 10px;
+}
+/* Cấu trúc toàn trang */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fa;
+    color: #000000;  /* Đặt màu chữ mặc định là đen */
+}
+
+/* Các phần trong .suggestion-content và các yếu tố khác */
+.suggestion-content {
+    display: none; /* Ẩn phần gợi ý mặc định */
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    color: #000000;  /* Đặt màu chữ trong suggestion-content là đen */
+}
+
+.suggestion-box h5 {
+    color: #000000; /* Đặt màu chữ cho tiêu đề của gợi ý là đen */
+}
+
+.suggestion-box p {
+    color: #000000; /* Đặt màu chữ cho phần nội dung gợi ý là đen */
+}
+
+.toggle-suggestion {
+    background-color:rgb(11, 17, 25);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+.toggle-suggestion:hover {
+    background-color: #0056b3;
+}
+
+.qa-list li {
+    color: #000000; /* Đặt màu chữ cho câu hỏi và trả lời trong danh sách là đen */
+}
+
+/* Thay đổi màu chữ cho các tiêu đề trong danh sách câu hỏi */
+.qa-list h4 {
+    color: #000000; /* Đặt màu chữ tiêu đề là đen */
+}
+
+.list-group-item {
+    color: #000000; /* Đặt màu chữ của các phần tử danh sách là đen */
+}
+
+.list-group-item strong {
+    color: #000000; /* Đặt màu chữ cho văn bản mạnh (strong) là đen */
+}
+
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4">
+      <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center" href="/"><img src="{{ url_for('static', filename='images/AI.png') }}" alt="Mona HR" class="logo-img" /></a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"><span class="navbar-toggler-icon"></span></button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+          <ul class="navbar-nav mb-2 mb-lg-0 gap-2">
+            <li class="nav-item">
+              <a class="nav-link" href="/form">Bắt đầu phỏng vấn</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/history">Lịch sử</a>
+            </li>
+          
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Nội dung chính -->
+    <div class="container py-5">
+      <!-- Thông tin ứng viên -->
+      <div class="candidate-info">
+        <div class="profile-header">
+          <img src="{{ url_for('static', filename='images/anhdaidien.jpg') }}" alt="Profile Image" />
+          <div>
+            <h3>{{ name }}</h3>
+            <p>{{ job_title }}</p>
+          </div>
+        </div>
+        <hr />
+        <div class="details">
+          <p>
+            <strong>Email:</strong> {{ email }}
+          </p>
+          <p>
+            <strong>Ngành nghề:</strong> {{ job_title }}
+          </p>
+          <p>
+            <strong>Mô tả công việc:</strong> {{ job_description }}
+          </p>
+          <p>
+            <strong>Ngôn ngữ phỏng vấn:</strong> {{ language }}
+          </p>
+          <p>
+            <strong>Ngày giờ phỏng vấn:</strong> {{ interview_datetime }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Thẻ phân cách -->
+      <hr />
+      <!-- Danh sách câu hỏi & trả lời -->
+      <div class="qa-list mt-5">
+    <h4>Danh sách câu hỏi & trả lời</h4>
+    <ul class="list-group">
+        {% for qa in qa_pairs %}
+            <li class="list-group-item">
+                <strong>Câu {{ loop.index }}:</strong> {{ qa.question }}<br />
+                <strong>Trả lời:</strong> {{ qa.answer }}
+                <div class="suggestion-box mt-3">
+                    <button class="btn btn-info toggle-suggestion">Hiển thị gợi ý</button>
+                    <div class="suggestion-content" style="display: none;">
+                        <h5>Gợi ý câu trả lời:</h5>
+                        <p>{{ suggested_answers[loop.index0] }}</p>
+                    </div>
+                </div>               
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+      <!-- Thẻ phân cách -->
+      <hr />
+
+      <!-- Đánh giá tổng quan -->
+      <div class="evaluation-block mt-4">
+        
+        {% for line in feedback.split('\n') %}
+          {% if line.startswith('**') %}
+            <h5>{{ line.strip('*') }}</h5>
+          {% else %}
+            <p>{{ line }}</p>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+    // Lấy tất cả các nút hiển thị gợi ý
+    const buttons = document.querySelectorAll('.toggle-suggestion');
+
+    // Thêm sự kiện click vào mỗi nút
+    buttons.forEach(button => {
+        button.addEventListener('click', function () {
+            // Tìm phần suggestion content bên trong mỗi nút
+            const suggestionContent = button.nextElementSibling;
+
+            // Thay đổi hiển thị của suggestion content
+            if (suggestionContent.style.display === "none" || suggestionContent.style.display === "") {
+                suggestionContent.style.display = "block"; // Hiển thị gợi ý
+                button.textContent = "Ẩn gợi ý";  // Thay đổi nội dung nút
+            } else {
+                suggestionContent.style.display = "none"; // Ẩn gợi ý
+                button.textContent = "Hiển thị gợi ý";  // Thay đổi nội dung nút
+            }
+        });
+    });
+});
+
+      </script>
+   
+  </body>
+</html>

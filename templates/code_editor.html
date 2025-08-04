@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Phỏng vấn Kỹ Thuật</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+    <style>
+        /* Một số style cơ bản cho trang */
+        .container {
+            margin-top: 20px;
+        }
+        .editor-container {
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Phỏng vấn Kỹ Thuật - Viết Mã</h2>
+        <div class="alert alert-info" role="alert">
+            Bạn đang làm bài kiểm tra kỹ thuật với ngôn ngữ <span id="language"></span>.
+        </div>
+        
+        <label for="code-editor">Viết mã của bạn tại đây:</label>
+        <textarea id="code-editor" name="code-editor"></textarea>
+        
+        <button id="submit" class="btn btn-success">Gửi mã và kiểm tra</button>
+        
+        <div id="feedback" class="mt-3"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/python/python.min.js"></script>
+
+    <script>
+        // Lấy thông tin ngôn ngữ từ URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const skill = urlParams.get('skill');  // Skill sẽ được truyền qua URL, ví dụ 'python'
+
+        // Hiển thị ngôn ngữ cho người dùng
+        document.getElementById('language').textContent = skill.charAt(0).toUpperCase() + skill.slice(1);
+        
+        // Tạo trình soạn thảo mã CodeMirror
+        const editor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
+            mode: skill,
+            lineNumbers: true,
+            matchBrackets: true,
+            theme: 'default'
+        });
+
+        // Sự kiện khi nhấn nút gửi mã
+        document.getElementById('submit').addEventListener('click', function () {
+            const code = editor.getValue();  // Lấy mã từ editor
+            console.log('Mã được nhập:', code);
+            
+            // Gửi mã đi kiểm tra (API hoặc logic kiểm tra tự động)
+            // Dưới đây là ví dụ giả định gọi API kiểm tra mã
+            checkCode(code);
+        });
+
+        // Hàm giả định kiểm tra mã
+        function checkCode(code) {
+            // Ở đây bạn có thể gọi API để kiểm tra mã (API chấm điểm tự động)
+            // Ví dụ:
+            fetch('/check_code', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    code: code,
+                    skill: skill
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('feedback').textContent = `Kết quả kiểm tra: ${data.result}`;
+            })
+            .catch(error => {
+                console.error('Lỗi:', error);
+                document.getElementById('feedback').textContent = 'Đã có lỗi xảy ra, vui lòng thử lại.';
+            });
+        }
+    </script>
+</body>
+</html>

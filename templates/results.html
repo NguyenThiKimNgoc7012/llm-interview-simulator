@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Báo cáo Kết quả Phỏng vấn</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+      }
+      
+      .container {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        margin-top: 30px;
+      }
+      
+      h2 {
+        text-align: center;
+        color:rgb(10, 38, 68);
+      }
+      
+      .alert-info {
+        background-color: #e9f7fe;
+        border-color: #bce0fd;
+        padding: 10px;
+        font-size: 1.2rem;
+      }
+      
+      .feedback-section {
+        margin-top: 30px;
+      }
+      
+      .feedback-section h5 {
+        font-size: 1.4rem;
+        color:rgb(4, 27, 5);
+        margin-bottom: 10px;
+      }
+      
+      .feedback-section p {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+      }
+      
+      .score-section {
+        margin-top: 30px;
+        font-size: 1.1rem;
+      }
+      
+      .score-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      
+      .score-table th,
+      .score-table td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: left;
+      }
+      
+      .score-table th {
+        background-color: #f8f9fa;
+      }
+      
+      .audio-player {
+        margin-top: 20px;
+        background-color: #e9f7ef;
+        padding: 15px;
+        border-radius: 5px;
+      }
+      
+      .audio-player h5 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+      }
+      
+      .back-btn {
+        margin-top: 40px;
+        display: block;
+        width: 200px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+        text-align: center;
+      }
+      
+      .back-btn:hover {
+        background-color: #0056b3;
+      }
+      
+   
+      table {
+        width: 100%;
+        border-spacing: 0;
+        border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4">
+      <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center" href="/"><img src="{{ url_for('static', filename='images/AI.png') }}" alt="Mona HR" class="logo-img" /></a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"><span class="navbar-toggler-icon"></span></button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+          <ul class="navbar-nav mb-2 mb-lg-0 gap-2">
+            <li class="nav-item">
+              <a class="nav-link" href="/form">Bắt đầu phỏng vấn</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/history">Lịch sử</a>
+            </li>
+          
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <h2> Kết quả Phỏng vấn</h2>
+
+      <div class="alert alert-info"style="text-align:center;">
+        <h4>Thông tin ứng viên</h4>
+        <p>
+          <strong>Tên ứng viên:</strong> {{ session.name }}
+        </p>
+        <p>
+          <strong>Vị trí ứng tuyển:</strong> {{ session.job_title }}
+        </p>
+      </div>
+
+      <!-- Câu hỏi và câu trả lời -->
+      <h5>Câu hỏi và câu trả lời:</h5>
+      <ul>
+        {% for i in range(questions|length) %}
+          {% if i < answers|length %}
+            <li>
+              <strong>{{ questions[i] }}</strong><br />
+              {{ answers[i].answer }}
+            </li>
+          {% else %}
+            <li>
+              <strong>{{ questions[i] }}</strong><br />Không có câu trả lời.
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      <!-- Đánh giá tổng quan -->
+      <div class="feedback-section">
+        <h2 style="text-align:center;">Đánh giá tổng quan</h2>
+
+        <div class="mb-3">
+          <h5>1. Ưu điểm:</h5>
+          <p>{{ feedback.split('Ưu điểm:').1.split('Nhược điểm:').0.strip() }}</p>
+        </div>
+
+        <div class="mb-3">
+          <h5>2. Nhược điểm:</h5>
+          <p>{{ feedback.split('Nhược điểm:').1.split('Giọng nói & mức độ tự tin:').0.strip() }}</p>
+        </div>
+
+        <div class="mb-3">
+          <h5>3. Giọng nói & mức độ tự tin:</h5>
+          <p>{{ feedback.split('Giọng nói & mức độ tự tin:').1.split('Gợi ý cải thiện:').0.strip() }}</p>
+        </div>
+
+        <div class="mb-3">
+          <h5>4. Gợi ý cải thiện:</h5>
+          <p>{{ feedback.split('Gợi ý cải thiện:').1.split('Technical Score:').0.strip() }}</p>
+        </div>
+      </div>
+
+      <!-- Điểm đánh giá -->
+      <div class="score-section">
+        <h5>**Điểm đánh giá:**</h5>
+        <table class="score-table">
+          <tr>
+            <th>Technical Score</th>
+            <td>{{ feedback.split('Technical Score:').1.split('Communication Score:').0.strip() }}</td>
+          </tr>
+          <tr>
+            <th>Communication Score</th>
+            <td>{{ feedback.split('Communication Score:').1.split('Fit Score:').0.strip() }}</td>
+          </tr>
+          <tr>
+            <th>Fit Score</th>
+            <td>{{ feedback.split('Fit Score:').1.split('Tổng điểm:').0.strip() }}</td>
+          </tr>
+          <tr>
+            <th>Tổng điểm</th>
+            <td>{{ feedback.split('Tổng điểm:').1.strip() }}</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Nghe đánh giá -->
+      <div class="audio-player">
+        <h5>Nghe đánh giá:</h5>
+        {% if audio_file %}
+          <audio controls>
+           <source src="{{ url_for('static', filename='audio/' + audio_file) }}" type="audio/mp3">
+Your browser does not support the audio element.
+          </audio>
+        {% else %}
+          <p>Không có âm thanh phản hồi.</p>
+        {% endif %}
+      </div>
+
+      <a href="/" class="back-btn">Quay lại trang chính</a>
+      <a href="{{ url_for('download_report') }}" class="btn btn-success">Tải xuống báo cáo</a>
+    <a href="{{ url_for('dashboard') }}" class="btn btn-info">Xem Dashboard</a>
+
+    </div>
+    <script>
+      console.log('Audio file path: ', "{{ url_for('static', filename='audio/' + audio_file) }}")
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

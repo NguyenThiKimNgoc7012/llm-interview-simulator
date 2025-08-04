@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Phỏng vấn AI – Hội thoại trực tiếp</title>
+  <link rel="icon" href="{{ url_for('static', filename='images/panda.png') }}" type="image/png" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      background: #f8f9fa;
+    }
+
+    .container {
+      height: 90vh;
+      /* Chiều cao toàn bộ màn hình */
+      display: flex;
+      justify-content: center;
+      /* Căn giữa theo chiều ngang */
+      align-items: center;
+      /* Căn giữa theo chiều dọc */
+    }
+
+    .container-flex {
+      display: flex;
+      justify-content: center;
+      /* Căn giữa các phần tử con trong container-flex */
+      align-items: center;
+      width: 300%;
+    }
+
+    .ai-panel {
+      width: 100%;
+      /* Đặt chiều rộng khung lớn hơn */
+      max-width: 1000px;
+      /* Giới hạn chiều rộng tối đa */
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      min-height: 690px;
+      /* Tạo chiều cao tối thiểu cho khung */
+    }
+
+    button {
+      margin-top: 20px;
+    }
+
+    .dialogue-box {
+      width: 100%;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      height: 75vh;
+      overflow-y: auto;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .speech-line {
+      margin-bottom: 15px;
+    }
+
+    .speech-line span {
+      font-weight: bold;
+    }
+
+    .left-panel {
+      flex: 1;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .chatbox-strip {
+      position: absolute;
+      top: 10%%;
+      left: 100%;
+      transform: translateX(-100%);
+      background-color: #007bff;
+      color: white;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      display: none;
+      /* Ẩn strip khi tải trang */
+    }
+
+    .microphone-btn {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 50%;
+      padding: 10px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50px;
+      height: 50px;
+    }
+
+    .microphone-btn:hover {
+      background-color: #007bff;
+    }
+
+    .microphone-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+
+    #error-message {
+      color: red;
+      display: none;
+    }
+
+    /* CSS cho container chứa các icon */
+    .buttons-container {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    /* CSS cho các icon */
+    .icon-btn {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 50%;
+      padding: 12px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 60px;
+      height: 60px;
+      position: relative;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    /* Hiệu ứng hover cho icon */
+    .icon-btn:hover {
+      background-color: #007bff;
+      transform: scale(1.1);
+    }
+
+    /* CSS cho icon bên trong nút */
+    .icon-btn svg {
+      width: 30px;
+      height: 30px;
+      fill: #007bff;
+      transition: fill 0.3s ease;
+    }
+
+    /* Hiệu ứng màu icon khi hover */
+    .icon-btn:hover svg {
+      fill: white;
+    }
+
+    /* CSS cho tooltip (chữ mô tả) */
+    .icon-btn span {
+      position: absolute;
+      top: 70px;
+      /* Đặt văn bản xuất hiện dưới icon */
+      font-size: 14px;
+      color: rgb(231, 233, 234);
+      display: none;
+      /* Ẩn văn bản khi chưa hover */
+      transition: opacity 0.3s ease;
+    }
+
+    /* Hiển thị tooltip khi hover */
+    .icon-btn:hover span {
+      display: block;
+      opacity: 1;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 100px;
+      /* Khoảng cách giữa các nút */
+      position: relative;
+      top: 10%;
+      /* Đặt các nút gần giữa màn hình */
+      left: 50%;
+      transform: translateX(-50%);
+      /* Căn giữa các nút */
+      width: 50%;
+      /* Điều chỉnh chiều rộng của container */
+    }
+
+    button {
+      border-radius: 50px;
+      /* Viền tròn cho nút */
+      padding: 15px 35px;
+      /* Tăng kích thước nút */
+      font-size: 16px;
+      /* Cỡ chữ vừa phải */
+      font-weight: bold;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      border: 2px solid rgb(0, 204, 255);
+      /* Viền nút */
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      /* Hiệu ứng phóng to nhẹ khi hover */
+    }
+
+    #endReviewButton {
+      padding: 10px 20px;
+      /* Khoảng cách trong nút */
+      font-size: 16px;
+      /* Kích thước chữ */
+      background-color: #f8d7da;
+      /* Màu nền nhạt */
+      color: #9e2a2f;
+      /* Màu chữ đỏ */
+
+      border-radius: 25px;
+      /* Viền tròn */
+      text-transform: uppercase;
+      /* Chữ in hoa */
+      transition: all 0.3s ease;
+      /* Hiệu ứng chuyển động */
+      position: relative;
+    }
+
+    #endReviewButton:focus {
+      outline: none;
+      /* Loại bỏ outline khi button được focus */
+    }
+
+    #endReviewButton:disabled {
+      background-color: #e9ecef;
+      color: #6c757d;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #6c757d;
+      border-radius: 50%;
+      border-top-color: transparent;
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 8px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Nút Quay lại */
+    #backButton {
+      display: flex;
+      align-items: center;
+      /* Căn giữa nội dung trong button */
+      justify-content: center;
+      /* Căn giữa nội dung trong button */
+      padding: 10px 20px;
+      font-size: 25px;
+
+      color: rgb(124, 127, 127);
+      /* Màu chữ */
+      border: 1px solidrgb(153, 198, 196);
+      /* Viền màu xanh */
+      border-radius: 50px;
+      /* Viền tròn */
+      transition: all 0.3s ease;
+      /* Hiệu ứng chuyển động */
+    }
+
+    #backButton i {
+      color: rgb(124, 127, 127);
+      /* Màu chữ */
+      margin-right: 10px;
+      /* Tạo khoảng cách giữa icon và chữ */
+      font-size: 20px;
+      /* Kích thước icon */
+    }
+
+    /* Nút Câu hỏi */
+    #questionButton {
+      display: flex;
+      align-items: center;
+      /* Căn giữa nội dung trong button */
+      justify-content: center;
+      /* Căn giữa nội dung trong button */
+      padding: 10px 20px;
+      font-size: 25px;
+      border-radius: 50px;
+      /* Tạo viền tròn cho button */
+      background-color: #f8f9fa;
+      color: #6c757d;
+      border: 1px solid #ced4da;
+      transition: all 0.3s ease;
+    }
+
+    #questionButton i {
+      margin-left: 8px;
+      /* Tạo khoảng cách giữa text và icon */
+      font-size: 16px;
+    }
+
+    #questionButton:focus {
+      outline: none;
+    }
+
+    button:disabled {
+      background-color: #e2e3e5;
+      /* Màu nền xám khi nút bị vô hiệu */
+      color: #6c757d;
+      /* Màu chữ xám khi nút bị vô hiệu */
+      border: 2px solid #ced4da;
+      /* Viền xám khi nút vô hiệu */
+    }
+
+    #answer-textarea {
+      height: 370px;
+      /* Đặt chiều cao cố định cho textarea */
+      resize: none;
+      /* Tắt chức năng thay đổi kích thước */
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="/"><img
+          src="{{ url_for('static', filename='images/AI.png') }}" alt="Mona HR" class="logo-img" /></a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"><span class="navbar-toggler-icon"></span></button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <ul class="navbar-nav mb-2 mb-lg-0 gap-2">
+          <li class="nav-item">
+            <a class="nav-link" href="/form">Bắt đầu phỏng vấn</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/history">Lịch sử</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="button-container">
+    <button id="backButton" class="btn" onclick="goBack()"><i class="fa-solid fa-arrow-left"></i> Quay lại</button>
+    <button id="questionButton" class="btn rounded-pill">Câu hỏi <span id="question-number">{{ (idx|default(0,
+        true))|int + 1 }}</span> <i class="fa-solid fa-chevron-right"></i></button>
+    <script>
+      // Lấy idx từ backend (nếu có)
+      let currentIdx = parseInt("{{ (idx|default(0, true))|int }}");
+      // Hàm cập nhật số thứ tự câu hỏi trên nút
+      function updateQuestionNumber() {
+        document.getElementById('question-number').innerText = currentIdx + 1;
+      }
+      // Đợi DOM load xong rồi mới thêm event listener
+      document.addEventListener('DOMContentLoaded', function() {
+        const answerForm = document.getElementById('answer-form');
+        if (answerForm) {
+          answerForm.addEventListener('submit', function (e) {
+            // Nếu bạn dùng AJAX thì bỏ comment dòng dưới
+            // e.preventDefault();
+            currentIdx += 1;
+            updateQuestionNumber();
+          });
+        }
+      });
+    </script>
+    <button id="endReviewButton" class="btn rounded-pill" onclick="showReview()">Kết thúc & Xem báo cáo</button>
+  </div>
+
+  <div class="container py-5">
+    <div class="container-flex">
+      <div class="ai-panel">
+        <p>Câu hỏi sẽ được phát tự động bằng giọng nói.</p>
+        <audio id="voicePlayer">
+          {% if audio_file %}
+          <source src="{{ url_for('static', filename='audio/' + audio_file) }}" type="audio/mpeg" />
+          {% endif %}
+        </audio>
+
+        <form method="POST" id="answer-form">
+          <textarea id="answer-textarea" name="answer" rows="3" class="form-control my-3"
+            placeholder="Bạn có thể nói câu trả lời..." required readonly></textarea>
+          <div class="buttons-container">
+            <button type="button" onclick="startRecognition()" id="mic-button" class="icon-btn" title="Start recording">
+              <i class="fa-solid fa-microphone"></i>
+              <span>Ghi âm</span>
+            </button>
+            <button type="button" id="replay-button" class="icon-btn" onclick="replayQuestion()"
+              title="Nghe lại câu hỏi">
+              <i class="fa-solid fa-headphones"></i>
+              <span>Nghe lại</span>
+            </button>
+            <button type="submit" class="icon-btn" id="sendButton" disabled>
+              <i class="fa-solid fa-paper-plane"></i>
+              <span>Gửi</span>
+            </button>
+          </div>
+        </form>
+        <p id="error-message">Không thể nhận diện giọng nói. Vui lòng thử lại!</p>
+      </div>
+    </div>
+  </div>
+
+  {% if popup_start %}
+  <div id="popupStart"
+    style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 9999;">
+    <div style="background: white; padding: 30px 40px; border-radius: 12px; text-align: center;">
+      <h4>🎤 Bắt đầu phỏng vấn</h4>
+      <p>Câu hỏi đầu tiên sẽ được phát bằng giọng nói ngay khi bạn bắt đầu.</p>
+      <button id="startInterviewBtn" class="btn btn-primary">Bắt đầu ngay</button>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if finished %}
+  <style>
+    #resultModalOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 1050;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .custom-modal-content {
+      border-radius: 24px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+      background: #fafdff;
+      border: none;
+      padding: 0;
+      overflow: hidden;
+      min-width: 350px;
+      max-width: 98vw;
+    }
+
+    .custom-modal-header {
+      background: linear-gradient(90deg, #38b000 0%, #60d394 100%);
+      color: #fff;
+      padding: 24px 32px 16px 32px;
+      border-bottom: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .custom-modal-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .custom-modal-body {
+      padding: 28px 32px 18px 32px;
+      background: #fafdff;
+    }
+
+    .custom-modal-body p {
+      font-size: 1.1rem;
+      margin-bottom: 18px;
+    }
+
+    .custom-modal-body h5 {
+      font-size: 1.1rem;
+      margin-top: 18px;
+      margin-bottom: 10px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .custom-modal-body ul.list-group {
+      border-radius: 12px;
+      background: #f3f7fa;
+      margin-bottom: 18px;
+      padding: 0 0 0 0;
+    }
+
+    .custom-modal-body .list-group-item {
+      border: none;
+      border-bottom: 1px solid #e3e3e3;
+      background: transparent;
+      font-size: 1rem;
+      padding: 12px 0 8px 0;
+    }
+
+    .custom-modal-body .list-group-item:last-child {
+      border-bottom: none;
+    }
+
+    .custom-modal-body .text-success {
+      color: #38b000 !important;
+    }
+
+    .custom-modal-body .text-dark {
+      color: #222 !important;
+    }
+
+    .custom-modal-body .alert-info {
+      background: #e6f7ff;
+      color: #1a5c7a;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.05rem;
+      margin-bottom: 0;
+    }
+
+    .custom-modal-footer {
+      padding: 18px 32px 24px 32px;
+      background: #fafdff;
+      display: flex;
+      gap: 16px;
+      justify-content: flex-end;
+      border-top: none;
+    }
+
+    .custom-modal-footer .btn {
+      font-size: 1.08rem;
+      border-radius: 8px;
+      padding: 10px 22px;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(56, 176, 0, 0.07);
+      transition: all 0.2s;
+    }
+
+    .custom-modal-footer .btn-primary {
+      background: linear-gradient(90deg, #38b000 0%, #60d394 100%);
+      border: none;
+    }
+
+    .custom-modal-footer .btn-outline-secondary {
+      border: 1.5px solid #38b000;
+      color: #38b000;
+    }
+
+    .custom-modal-footer .btn-outline-secondary:hover {
+      background: #38b000;
+      color: #fff;
+    }
+
+    .custom-modal-footer .btn-outline-dark {
+      border: 1.5px solid #222;
+      color: #222;
+    }
+
+    .custom-modal-footer .btn-outline-dark:hover {
+      background: #222;
+      color: #fff;
+    }
+
+    @media (max-width: 600px) {
+
+      .custom-modal-content,
+      .custom-modal-header,
+      .custom-modal-body,
+      .custom-modal-footer {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+      }
+
+      .custom-modal-content {
+        min-width: 0;
+        width: 98vw;
+      }
+    }
+  </style>
+  <div id="resultModalOverlay">
+    <div class="custom-modal-content animate__animated animate__fadeInDown">
+      <div class="custom-modal-header">
+        <span class="custom-modal-title"><i class="fa-solid fa-circle-check"
+            style="color:#fff;font-size:1.7rem;"></i>Phỏng vấn đã kết thúc!</span>
+        <button type="button" class="btn-close btn-close-white" aria-label="Close" onclick="closeResultModal()"
+          style="filter:invert(1);"></button>
+      </div>
+      <div class="custom-modal-body">
+        <p>Cảm ơn bạn đã tham gia phỏng vấn.<br>Dưới đây là <b>báo cáo kết quả</b> của bạn:</p>
+        <div id="questions-and-feedback">
+          <h5 class="text-primary"><i class="fa-solid fa-question-circle" style="color:#38b000;"></i> Câu hỏi & trả lời:
+          </h5>
+          <ul class="list-group">
+            {% for qa in questions %}
+            <li class="list-group-item">
+              <strong class="text-success">{{ qa.question }}</strong><br />
+              <span class="text-dark">{{ qa.answer }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+          <h5 class="text-primary"><i class="fa-solid fa-star" style="color:#f9c846;"></i> Đánh giá tổng quan:</h5>
+          <div class="alert alert-info">{{ feedback }}</div>
+        </div>
+      </div>
+      <div class="custom-modal-footer">
+        <button type="button" id="replay-button" class="btn btn-outline-secondary" onclick="replayQuestion()"
+          title="Nghe lại đánh giá">
+          <i class="fa-solid fa-volume-up"></i> Nghe đánh giá
+        </button>
+        <a href="/results" class="btn btn-primary"><i class="fa-solid fa-file-alt"></i> Xem Báo Cáo</a>
+        <button type="button" class="btn btn-outline-dark" onclick="closeResultModal()">Đóng</button>
+      </div>
+    </div>
+  </div>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <script>
+    function closeResultModal() {
+      document.getElementById('resultModalOverlay').style.display = 'none';
+      document.body.classList.remove('modal-open');
+      document.body.style.overflow = '';
+    }
+    document.body.classList.add('modal-open');
+    document.body.style.overflow = 'hidden';
+  </script>
+  {% endif %}
+
+  <script>
+    // Gọi API kết thúc phỏng vấn khi nhấn nút "Kết thúc & Xem báo cáo"
+    function showReview() {
+      const form = document.getElementById('answer-form');
+      const endButton = document.getElementById('endReviewButton');
+      
+      if (!form) {
+        console.error('Form answer-form không tìm thấy');
+        return;
+      }
+      
+      // Hiển thị loading state
+      endButton.disabled = true;
+      endButton.innerHTML = '<span class="loading-spinner"></span>Đang xử lý...';
+      
+      // Tạo input ẩn end_interview nếu chưa có
+      let endInput = document.getElementById('end_interview_input');
+      if (!endInput) {
+        endInput = document.createElement('input');
+        endInput.type = 'hidden';
+        endInput.name = 'end_interview';
+        endInput.value = 'true';
+        endInput.id = 'end_interview_input';
+        form.appendChild(endInput);
+      }
+      
+      // Submit form sau một delay nhỏ để user thấy loading
+      setTimeout(() => {
+        form.submit();
+      }, 300);
+    }
+    
+    // Function để xử lý nút Quay lại
+    function goBack() {
+      window.history.back();
+    }
+    
+    // Function để reset loading state của nút kết thúc
+    function resetEndButton() {
+      const endButton = document.getElementById('endReviewButton');
+      if (endButton) {
+        endButton.disabled = false;
+        endButton.innerHTML = 'Kết thúc & Xem báo cáo';
+      }
+    }
+    
+    // Reset nút nếu có lỗi trong quá trình submit
+    window.addEventListener('pageshow', function(event) {
+      if (event.persisted) {
+        resetEndButton();
+      }
+    });
+    
+    window.onload = function () {
+      const voicePlayer = document.getElementById('voicePlayer')
+      if (voicePlayer) {
+        voicePlayer.load() // Cập nhật lại nguồn mới
+      }
+      // Đảm bảo nút được reset khi trang load
+      resetEndButton();
+    }
+  </script>
+
+  <script>
+    let recognizing = false
+    let recognition
+    let isReplay = false
+
+    if ('webkitSpeechRecognition' in window) {
+      recognition = new webkitSpeechRecognition()
+      recognition.lang = 'vi-VN'
+      recognition.continuous = false
+      recognition.interimResults = false
+
+      recognition.onstart = function () {
+        recognizing = true
+        document.getElementById('mic-button').innerHTML = '<i class="fa-solid fa-record-vinyl fa-beat-fade"></i>' // Đổi biểu tượng khi bắt đầu nghe
+        document.getElementById('error-message').style.display = 'none' // Ẩn thông báo lỗi khi bắt đầu nhận diện
+      }
+
+      recognition.onend = function () {
+        recognizing = false
+        document.getElementById('mic-button').innerHTML = '<i class="fa-solid fa-microphone "></i>' // Đổi biểu tượng khi kết thúc nghe
+      }
+
+      recognition.onresult = function (event) {
+        const transcript = event.results[0][0].transcript
+
+        if (transcript.trim().length === 0) {
+          document.getElementById('error-message').style.display = 'block' // Hiển thị thông báo lỗi nếu không có lời nói
+          document.querySelector('button[type="submit"]').disabled = true // Vô hiệu nút gửi khi không có giọng nói
+        } else {
+          document.getElementById('answer-textarea').value = transcript // Hiển thị câu trả lời nhận được từ giọng nói
+          document.querySelector('button[type="submit"]').disabled = false // Kích hoạt nút gửi khi có câu trả lời
+          document.getElementById('error-message').style.display = 'none' // Ẩn thông báo lỗi khi có giọng nói
+
+        }
+      }
+
+      recognition.onerror = function (event) {
+        console.error('Speech recognition error:', event.error)
+        document.getElementById('error-message').style.display = 'block' // Hiển thị thông báo lỗi nếu có lỗi nhận diện
+      }
+    } else {
+      alert('Trình duyệt của bạn không hỗ trợ nhận diện giọng nói.')
+    }
+
+    // Bắt đầu nhận diện giọng nói
+    function startRecognition() {
+      if (recognizing) {
+        recognition.stop() // Dừng nhận diện nếu đang nhận diện
+        return
+      }
+      recognition.start() // Bắt đầu nhận diện giọng nói
+    }
+    const popup = document.getElementById('popupStart')
+    const startBtn = document.getElementById('startInterviewBtn')
+    const voicePlayer = document.getElementById('voicePlayer')
+
+    if (startBtn) {
+      startBtn.addEventListener('click', () => {
+        popup.style.display = 'none'
+        if (voicePlayer) {
+          voicePlayer.play().catch((err) => {
+            console.warn('Autoplay bị chặn. Hãy click tương tác lại!')
+          })
+        }
+      })
+    }
+    // Phát lại câu hỏi
+    function replayQuestion() {
+      const voicePlayer = document.getElementById('voicePlayer')
+      voicePlayer.load()
+      voicePlayer.play().catch((err) => {
+        console.warn('Autoplay bị chặn. Hãy click tương tác lại!')
+      })
+      replayQuestion();
+    }
+  </script>
+</body>
+
+</html>

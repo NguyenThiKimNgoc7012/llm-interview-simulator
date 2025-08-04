@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>MONA.HR</title>
+  <link rel="icon" href="{{ url_for('static', filename='images/panda.png') }}" type="image/png" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/interview.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style></style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="/"><img
+          src="{{ url_for('static', filename='images/AI.png') }}" alt="Mona HR" class="logo-img" /></a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"><span class="navbar-toggler-icon"></span></button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <ul class="navbar-nav mb-2 mb-lg-0 gap-2">
+          <button id="endReviewButton" class="btn rounded-pill" onclick="endInterview()">Kết thúc & Xem kết quả</button>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-2 sidebar bg-white">
+        <h5 class="text-center">Lịch sử phỏng vấn</h5>
+        <ul class="list-group mt-3">
+          {% for session_id, info in history.items() %}
+          <li
+            class="list-group-item interview-item d-flex justify-content-between align-items-center position-relative">
+            <a href="/result/{{ session_id }}" target="_blank" class="link-primary text-decoration-none fw-semibold">{{
+              info.name }} – {{ info.job }}</a>
+            <div class="dropdown action-menu">
+              <button class="btn btn-sm" data-bs-toggle="dropdown" aria-expanded="false">⋯</button>
+              <ul class="dropdown-menu shadow-sm dropdown-custom">
+                <li>
+                  <a class="dropdown-item" href="/result/{{ session_id }}" target="_blank">Xem kết quả</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/download/{{ session_id }}">Tải xuống</a>
+                </li>
+                <li>
+                  <button class="dropdown-item"
+                    onclick="confirmDelete('{{ session_id }}', '{{ info.name }}', '{{ info.job }}')">Xoá</button>
+                </li>
+              </ul>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- Chat area -->
+      <div class="col-md-10">
+        <div class="chat-box mt-4" id="chat-box">
+          {% for msg in messages %}
+          {% if msg.role == 'bot' %}
+          {% if 'Đánh giá tổng quan' in msg.text %}
+          <div class="chat-bubble chat-left evaluation-block">{{ msg.text|safe }}</div>
+          {% else %}
+          <div class="chat-bubble chat-left">{{ msg.text|safe }}</div>
+          {% endif %}
+          {% elif msg.role == 'user' %}
+          <div class="chat-bubble chat-right">{{ msg.text|safe }}</div>
+          {% endif %}
+          {% endfor %}
+        </div>
+
+        {% if finished %}
+        <div class="alert alert-secondary text-center rounded-pill py-3 fw-semibold mt-4" role="alert">Cuộc phỏng vấn đã
+          kết thúc! Cảm ơn bạn đã tham gia.</div>
+        {% else %}
+        <form method="POST" class="mt-3">
+          <div class="input-group">
+            <textarea name="answer" class="form-control" placeholder="Nhập câu trả lời..." required></textarea>
+            <button class="btn btn-success" type="submit">Gửi ➤</button>
+          </div>
+        </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal xác nhận xoá -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content shadow rounded-4 border-0">
+        <div class="modal-body p-5 text-center">
+          <h4 class="fw-bold mb-3">Delete chat?</h4>
+          <p class="text-muted fs-5">
+            Thao tác này sẽ xóa vĩnh viễn cuộc phỏng vấn <strong id="modal-chat-name">Tên cuộc phỏng vấn</strong>.
+          </p>
+          <div class="d-flex justify-content-center gap-3 mt-4">
+            <button class="btn btn-outline-secondary rounded-pill px-4 py-2" data-bs-dismiss="modal">Cancel</button>
+            <button class="btn btn-danger rounded-pill px-4 py-2" id="confirm-delete-btn">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentDeleteId = ''
+
+    function confirmDelete(id, label) {
+      currentDeleteId = id
+      document.getElementById('modal-chat-name').innerText = label // Cập nhật tên cuộc phỏng vấn
+      const modal = new bootstrap.Modal(document.getElementById('deleteModal'))
+      modal.show()
+    }
+
+    document.getElementById('confirm-delete-btn').addEventListener('click', () => {
+      fetch(`/delete/${currentDeleteId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            alert('Cuộc phỏng vấn đã bị xóa thành công!')
+            location.reload() // Tải lại trang để cập nhật
+          } else {
+            alert('Không thể xóa cuộc phỏng vấn.')
+          }
+        })
+        .catch((error) => {
+          alert('Có lỗi xảy ra khi xóa!')
+          console.error(error)
+        })
+    })
+  </script>
+
+  <script>
+    window.onload = function () {
+      const chatBox = document.querySelector('.chat-box')
+      if (chatBox) {
+        chatBox.scrollTop = chatBox.scrollHeight
+      }
+    }
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const textarea = document.querySelector("textarea[name='answer']")
+      const form = textarea.closest('form')
+
+      textarea.addEventListener('keydown', function (event) {
+        // Nếu nhấn Enter mà không giữ Shift thì gửi
+        if (event.key === 'Enter' && !event.shiftKey) {
+          event.preventDefault() // Ngăn xuống dòng
+          form.submit() // Gửi form
+        }
+      })
+    })
+  </script>
+  <script>
+    window.onload = function () {
+      const chatBox = document.querySelector('.chat-box')
+      if (chatBox) {
+        chatBox.scrollTop = chatBox.scrollHeight
+      }
+
+      // Focus con trỏ vào khung trả lời khi trang load
+      const textarea = document.querySelector("textarea[name='answer']")
+      if (textarea) {
+        textarea.focus()
+      }
+    }
+  </script>
+  <script>
+    function endInterview() {
+      const interviewId = "123";  // Thay thế bằng ID phỏng vấn thực tế
+      const currentQuestionIndex = 6; // Ví dụ, ứng viên đã trả lời đến câu số 6
+
+      // Gửi yêu cầu đến Flask để kết thúc phỏng vấn và lấy kết quả
+      fetch(`/end_interview/${interviewId}`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ "current_question_index": currentQuestionIndex })
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          if (data.interview_id) {
+            window.location.href = "/result/" + data.interview_id;  // Điều hướng đến trang kết quả
+          } else {
+            alert("Lỗi kết thúc phỏng vấn, vui lòng thử lại.");
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+
+
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

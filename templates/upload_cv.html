@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Phỏng vấn AI – Tải CV và khai báo thông tin</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <style>
+      .custom-job-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+      }
+
+      .custom-job-buttons .btn {
+        font-size: 14px;
+        padding: 10px 20px;
+        cursor: pointer;
+        background-color: #f0f0f0;
+        border: 1px solid #ddd;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      .custom-job-buttons .btn:hover {
+        background-color:rgb(125, 173, 89);
+        color: #fff;
+      }
+
+      .selected-job {
+        background-color: #ef4444;
+        color: #ef4444;
+        border: 1px solid #dc2626;
+      }
+
+      .form-label {
+        font-weight: bold;
+      }
+
+      .error-message {
+        color: #dc2626;
+        font-size: 14px;
+        margin-top: 5px;
+      }
+
+      /* Style for file upload input */
+      .file-upload-container {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+      }
+
+      .file-upload-button {
+        display: inline-block;
+        background-color: #f0f0f0;
+        padding: 12px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        border: 1px solid #ddd;
+        transition: background-color 0.3s;
+      }
+
+      .file-upload-button:hover {
+        background-color: #ef4444;
+        color: #fff;
+      }
+
+      .file-upload-input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+      }
+
+      .file-name {
+        margin-top: 5px;
+        color: #333;
+        font-size: 14px;
+      }
+      /* Container for the file upload section */
+.resume-upload-outer-wrap {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fafafa;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* The file upload button itself */
+.resume-upload-wrap {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.resume-upload-icon-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background-color: #f0f0f0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  border: 1px solid #ddd;
+  transition: all 0.3s ease;
+}
+.resume-upload-icon-text i {
+        font-size: 60px;
+        margin-right: 10px; /* Space between icon and text */
+        color: #333;
+        transition: color 0.3s;
+      }
+
+.resume-upload-icon-text:hover {
+  background-color: #ef4444;
+  color: #fff;
+}
+
+.resume-upload-icon-text svg {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.resume-upload-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.resume-upload-actions {
+  font-size: 12px;
+  color: #888;
+  margin-top: 5px;
+}
+
+/* The actual file input (hidden) */
+.resume-upload-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+/* The Pro pill next to the upload section */
+.pill {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 12px;
+  background-color:rgb(59, 157, 11);
+  color: rgb(25, 57, 9);
+  font-weight: 600;
+}
+
+.pill.positive {
+  background-color: #4caf50;
+}
+
+/* Displaying the name of the selected file */
+.file-name {
+  margin-top: 5px;
+  color: #333;
+  font-size: 14px;
+  text-align: center;
+}
+.custom-title {
+   font-family: 'Roboto', sans-serif; /* Chọn font chữ, bạn có thể thay đổi nếu cần */
+  font-size: 36px; /* Kích thước chữ */
+  font-weight: bold; /* Chữ in đậm */
+  word-spacing: 5px;
+  text-transform: uppercase; /* Chữ in hoa tất cả */
+  text-align: center; /* Căn giữa chữ */
+  color:rgb(9, 39, 27); /* Màu chữ */
+  margin-top: 20px; /* Khoảng cách trên */
+  }
+/* Chỉnh kiểu cho nút */
+/* Chỉnh kiểu cho nút */
+.btn-custom {
+  background: linear-gradient(135deg, #4f9bfa, #338f92); /* Nền gradient */
+  color: white; /* Màu chữ */
+  font-size: 16px; /* Kích thước chữ */
+  padding: 10px 20px; /* Khoảng cách giữa nội dung và viền */
+  border: none; /* Bỏ viền */
+  border-radius: 30px; /* Bo góc nút tròn */
+  display: inline-block; /* Để nút nằm trong cùng dòng */
+  text-align: center; /* Canh giữa chữ */
+  text-decoration: none; /* Bỏ gạch dưới */
+  transition: all 0.3s ease; /* Hiệu ứng khi hover */
+  cursor: pointer; /* Con trỏ chuột dạng tay */
+  width: auto; /* Đảm bảo nút có chiều rộng tự động */
+  margin-left: 550px; /* Khoảng cách phía trên nút */
+  max-width: 220px; /* Đặt chiều rộng tối đa cho nút */
+  /* Nếu bạn muốn nút nhỏ hơn, có thể thử giảm kích thước max-width */
+ 
+}
+
+
+/* Hiệu ứng hover khi di chuột qua nút */
+.btn-custom:hover {
+  background: linear-gradient(135deg, #338f92, #4f9bfa); /* Đảo ngược gradient khi hover */
+  transform: scale(1.05); /* Phóng to một chút */
+}
+
+
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4">
+      <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center" href="/"><img src="{{ url_for('static', filename='images/AI.png') }}" alt="Mona HR" class="logo-img" /></a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"><span class="navbar-toggler-icon"></span></button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+          <ul class="navbar-nav mb-2 mb-lg-0 gap-2">
+            <li class="nav-item">
+              <a class="nav-link" href="/form">Bắt đầu phỏng vấn</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/history">Lịch sử</a>
+            </li>
+          
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container py-5">
+      
+        <h2 class=" custom-title text-center mb-4">LỰA   CHỌN  VỊ  TRÍ  PHỎNG  VẤN</h2>
+        
+        <!-- Error message -->
+        {% if error %}
+          <div class="alert alert-danger">
+            <strong>Lỗi!</strong> {{ error }}
+          </div>
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label class="form-label">Họ và tên:</label>
+            <input type="text" class="form-control" name="name" required />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Ngôn ngữ phỏng vấn:</label>
+            <select class="form-select" name="language" required>
+              <option value="vi">Tiếng Việt</option>
+              <option value="en">Tiếng Anh</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Vị trí ứng tuyển:</label>
+            <div class="custom-job-buttons">
+              {% for job in job_list %}
+                <button type="button" class="btn" onclick="selectJob(this, '{{ job }}')">
+                  {{ job }}
+                </button>
+              {% endfor %}
+            </div>
+            <!-- Hidden field to keep selected job title -->
+            <input type="hidden" id="selected-job" name="job_title" />
+            <div class="error-message" id="job-error"></div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Mô tả công việc (nếu có):</label>
+            <textarea class="form-control" name="job_description" rows="3" placeholder="Dán mô tả công việc hoặc JD tại đây..."></textarea>
+          </div>
+
+          <!-- Resume Upload Section -->
+          <div class="mb-3">
+            <label class="form-label">Tải lên CV của bạn:</label>
+            <div class="resume-upload-outer-wrap">
+              <div class="resume-upload-wrap">
+                <label for="fileInput" class="resume-upload-icon-text">
+                <i class="fa-solid fa-file-arrow-up"></i>
+                  <div class="resume-upload-text">
+                    <span>Tải sơ yếu lý lịch của bạn lên để nhận được phản hồi tốt hơn và phù hợp hơn!</span>
+                    
+                  </div>
+                </label>
+                <input type="file" id="fileInput" class="resume-upload-input" name="cv" accept=".pdf,.doc,.docx" required />
+              </div>
+            </div>
+
+         <button type="submit" class="btn-custom w-100" style="margin-top: 20px;">Bắt đầu phỏng vấn với AI</button>
+
+        </form>
+     
+    </div>
+
+    <script>
+      // Function to select a job and store it in the hidden field
+      function selectJob(button, job) {
+        // Reset previous selected job
+        let buttons = document.querySelectorAll('.custom-job-buttons .btn');
+        buttons.forEach((btn) => {
+          btn.classList.remove('selected-job');
+        });
+
+        // Add selected class to the clicked button
+        button.classList.add('selected-job');
+
+        // Set the selected job in the hidden input
+        document.getElementById('selected-job').value = job;
+        
+        // Clear error message
+        document.getElementById('job-error').innerHTML = '';
+      }
+
+      // Handle file selection
+      document.querySelector('.file-upload-input').addEventListener('change', function(event) {
+        let fileName = event.target.files[0] ? event.target.files[0].name : 'Chưa chọn tệp';
+        document.getElementById('file-name').textContent = fileName;
+      });
+
+      // Function to validate form before submit
+      function validateForm() {
+        let jobSelected = document.getElementById('selected-job').value;
+        let cvFile = document.querySelector('input[type="file"]').files.length;
+
+        // Clear previous error messages
+        document.getElementById('job-error').innerHTML = '';
+        document.getElementById('cv-error').innerHTML = '';
+
+        // Check if job title is selected
+        if (!jobSelected) {
+          document.getElementById('job-error').innerHTML = 'Vui lòng chọn vị trí ứng tuyển!';
+          return false;
+        }
+
+        // Check if CV is uploaded
+        if (cvFile === 0) {
+          document.getElementById('cv-error').innerHTML = 'Vui lòng tải lên CV của bạn!';
+          return false;
+        }
+
+        return true;
+      }
+
+      // Attach the validateForm function to form submission
+      document.querySelector('form').onsubmit = function(event) {
+        if (!validateForm()) {
+          event.preventDefault(); // Prevent form submission if validation fails
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,109 @@
+{
+  "name": "Nguyễn Văn A",
+  "contact_info": {
+    "email": "nguyenvana@example.com",
+    "phone": "0123456789",
+    "linkedin": "https://www.linkedin.com/in/nguyenvana"
+  },
+  "career_objective": "Là một Fullstack Developer, mục tiêu nghề nghiệp của tôi là phát triển ứng dụng web chất lượng cao, tối ưu hiệu suất và đảm bảo sự tương thích với nhiều thiết bị và trình duyệt. Tôi mong muốn có cơ hội làm việc với những công nghệ tiên tiến để tạo ra các giải pháp sáng tạo và hiệu quả.",
+  "skills": {
+    "frontend": [
+      "HTML5", 
+      "CSS3", 
+      "JavaScript (ES6+)", 
+      "React.js", 
+      "Redux", 
+      "Vue.js", 
+      "SASS/SCSS", 
+      "Bootstrap", 
+      "Tailwind CSS", 
+      "Responsive Web Design", 
+      "AJAX", 
+      "REST APIs", 
+      "GraphQL"
+    ],
+    "backend": [
+      "Node.js", 
+      "Express.js", 
+      "Ruby on Rails", 
+      "Django", 
+      "PHP", 
+      "Java (Spring Boot)", 
+      "Python", 
+      "GraphQL", 
+      "Socket.IO"
+    ],
+    "database": [
+      "MongoDB", 
+      "MySQL", 
+      "PostgreSQL", 
+      "SQLite", 
+      "Redis", 
+      "CouchDB"
+    ],
+    "devops_tools": [
+      "Docker", 
+      "Kubernetes", 
+      "AWS (EC2, S3, RDS)", 
+      "Azure", 
+      "Google Cloud Platform (GCP)", 
+      "CI/CD (Jenkins, Travis CI, CircleCI)"
+    ],
+    "version_control": [
+      "Git", 
+      "GitHub", 
+      "GitLab", 
+      "Bitbucket"
+    ],
+    "testing": [
+      "Jest", 
+      "Mocha", 
+      "Chai", 
+      "Cypress", 
+      "Karma"
+    ],
+    "others": [
+      "Agile/Scrum", 
+      "Unit Testing", 
+      "TDD (Test-Driven Development)", 
+      "MVC Architecture", 
+      "Microservices", 
+      "RESTful API Design", 
+      "OAuth2 & JWT Authentication"
+    ]
+  },
+  "experience": [
+    {
+      "company": "Tech Corp",
+      "job_title": "Fullstack Developer",
+      "job_date": "Jan 2022 - Present",
+      "job_desc": "Develop and maintain full-stack web applications. Responsible for both front-end and back-end development, ensuring performance optimization and user-friendly interfaces. Collaborated with cross-functional teams to deliver high-quality products."
+    }
+  ],
+  "education": [
+    {
+      "degree": "Cử nhân Khoa học Máy tính",
+      "school": "Đại học XYZ",
+      "year": "2018 - 2022"
+    }
+  ],
+  "projects": [
+    {
+      "project_title": "E-commerce Platform",
+      "project_desc": "Developed an e-commerce platform with product management, cart, and checkout features using React for the front-end and Node.js for the back-end. Integrated payment gateways and optimized the platform for scalability.",
+      "technologies": ["React", "Node.js", "MongoDB", "Stripe", "Redis"],
+      "results": [
+        "Increased sales by 30% in the first quarter after deployment.",
+        "Optimized product search to reduce latency by 50%."
+      ]
+    },
+    {
+      "project_title": "Real-time Chat Application",
+      "project_desc": "Built a real-time chat application with WebSocket, using Node.js and Socket.IO. Implemented features like private messaging, group chats, and notifications.",
+      "technologies": ["Node.js", "Express", "Socket.IO", "MongoDB"],
+      "results": [
+        "Decreased message latency by 40% and improved user engagement."
+      ]
+    }
+  ]
+}

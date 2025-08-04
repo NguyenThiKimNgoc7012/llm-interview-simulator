@@ -1,0 +1,402 @@
+[
+  {
+    "question": " Một số quan niệm sai lầm phổ biến về AI là gì?",
+    "answer": "Mặc dù nhiều người nghĩ rằng trạng thái nghệ thuật trong AI vẫn còn xa phía sau trí thông minh của con người. Trí tuệ tổng hợp nhân tạo, tức là AGI, là nhiên liệu thúc đẩy cho tất cả các nhà khoa học AI từ trước đến nay. Tương tự như Alchemy, nhiệm vụ vĩnh viễn cho AGI là sao chép và vượt qua trí thông minh của con người để dẫn đến việc tạo ra nhiều kỹ thuật và đột phá khoa học. AGI đã giúp chúng ta hiểu các khía cạnh của trí tuệ con người và tự nhiên, và đem lại kết quả là chúng ta đã xây dựng các thuật toán hiệu quả lấy cảm hứng từ sự hiểu biết và mô hình của chúng."
+  },
+  {
+    "question": " Có bao nhiêu loại AI khác nhau?",
+    "answer": "Có 4 loại AI chính theo chức năng bao gồm: reactive machines, limited memory, theory-of-mind và self-aware. Nếu phân loại theo khả năng thì AI được phân thành trí thông minh hạn hẹp (ANI), trí thông minh tổng quát (AGI) và siêu trí tuệ (SGI)"
+  },
+  {
+    "question": " Một số ứng dụng thực tế của AI là gì?",
+    "answer": "AI làm martketing, AI phỏng vấn, AI khám bệnh, AI dạy học"
+  },
+  {
+    "question": " Lý thuyết trò chơi liên quan đến AI như thế nào?",
+    "answer": "Lý thuyết trò chơi (game theory) và trí tuệ nhân tạo (AI) có mối quan hệ rất chặt chẽ — đặc biệt trong các lĩnh vực như ra quyết định, chiến lược, học tăng cường (reinforcement learning), và multi-agent systems (hệ đa tác nhân). "
+  },
+  {
+    "question": " Một số ngôn ngữ lập trình phổ biến được sử dụng trong AI là gì?",
+    "answer": "Julia,Python,JavaScript,Java,C++"
+  },
+  {
+    "question": " Một số công cụ và nền tảng AI phổ biến là gì?",
+    "answer": "Học mô hình AI: Dùng PyTorch, TensorFlow, Scikit-learn"
+  },
+  {
+    "question": " Logic mờ hoạt động như thế nào trong AI?",
+    "answer": "triển khai mô hình: Streamlit, Gradio, AWS Sagemaker, Hugging Face Spaces"
+  },
+  {
+    "question": " Các mô hình AI xử lý sự không chắc chắn trong thế giới thực như thế nào?",
+    "answer": "Dán nhãn dữ liệu :Label Studio, CVAT"
+  },
+  {
+    "question": " Mạng Bayesian là gì và chúng được sử dụng như thế nào trong AI?",
+    "answer": "Trí tuệ nhân tạo đa năng: ChatGPT, DALL·E, Whisper, Midjourney"
+  },
+  {
+    "question": " Mô hình Markov ẩn (HMM) hoạt động như thế nào trong AI?",
+    "answer": "Mô hình Markov ẩn (HMM – Hidden Markov Model) là một công cụ toán học rất mạnh trong Trí tuệ nhân tạo, đặc biệt hữu ích khi xử lý dữ liệu theo chuỗi và có yếu tố “ẩn”, ví dụ như ngôn ngữ, giọng nói, cử chỉ, chuỗi gen, hành vi người dùng..."
+  },
+  {
+    "question": " Một số quan niệm sai lầm phổ biến về AI là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Có bao nhiêu loại AI khác nhau?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số ứng dụng thực tế của AI là gì?",
+    "answer": "kim"
+  },
+  {
+    "question": " Lý thuyết trò chơi liên quan đến AI như thế nào?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số ngôn ngữ lập trình phổ biến được sử dụng trong AI là gì?",
+    "answer": "kinh nghiệm"
+  },
+  {
+    "question": " Một số công cụ và nền tảng AI phổ biến là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Logic mờ hoạt động như thế nào trong AI?",
+    "answer": "ai"
+  },
+  {
+    "question": " Các mô hình AI xử lý sự không chắc chắn trong thế giới thực như thế nào?",
+    "answer": "ai"
+  },
+  {
+    "question": " Mạng Bayesian là gì và chúng được sử dụng như thế nào trong AI?",
+    "answer": "ai"
+  },
+  {
+    "question": " Mô hình Markov ẩn (HMM) hoạt động như thế nào trong AI?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số quan niệm sai lầm phổ biến về AI là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Có bao nhiêu loại AI khác nhau?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số ứng dụng thực tế của AI là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Lý thuyết trò chơi liên quan đến AI như thế nào?",
+    "answer": "ao"
+  },
+  {
+    "question": " Một số ngôn ngữ lập trình phổ biến được sử dụng trong AI là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số công cụ và nền tảng AI phổ biến là gì?",
+    "answer": "au"
+  },
+  {
+    "question": " Logic mờ hoạt động như thế nào trong AI?",
+    "answer": "ao"
+  },
+  {
+    "question": " Các mô hình AI xử lý sự không chắc chắn trong thế giới thực như thế nào?",
+    "answer": "au"
+  },
+  {
+    "question": " Mạng Bayesian là gì và chúng được sử dụng như thế nào trong AI?",
+    "answer": "ạ"
+  },
+  {
+    "question": " Mô hình Markov ẩn (HMM) hoạt động như thế nào trong AI?",
+    "answer": "ạ"
+  },
+  {
+    "question": " Một số quan niệm sai lầm phổ biến về AI là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Có bao nhiêu loại AI khác nhau?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số ứng dụng thực tế của AI là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Lý thuyết trò chơi liên quan đến AI như thế nào?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số ngôn ngữ lập trình phổ biến được sử dụng trong AI là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số công cụ và nền tảng AI phổ biến là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Logic mờ hoạt động như thế nào trong AI?",
+    "answer": "ai"
+  },
+  {
+    "question": " Các mô hình AI xử lý sự không chắc chắn trong thế giới thực như thế nào?",
+    "answer": "ai"
+  },
+  {
+    "question": " Mạng Bayesian là gì và chúng được sử dụng như thế nào trong AI?",
+    "answer": "ai"
+  },
+  {
+    "question": " Mô hình Markov ẩn (HMM) hoạt động như thế nào trong AI?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số quan niệm sai lầm phổ biến về AI là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Có bao nhiêu loại AI khác nhau?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số ứng dụng thực tế của AI là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Lý thuyết trò chơi liên quan đến AI như thế nào?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số ngôn ngữ lập trình phổ biến được sử dụng trong AI là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số công cụ và nền tảng AI phổ biến là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Logic mờ hoạt động như thế nào trong AI?",
+    "answer": "ai"
+  },
+  {
+    "question": " Các mô hình AI xử lý sự không chắc chắn trong thế giới thực như thế nào?",
+    "answer": "ai"
+  },
+  {
+    "question": " Mạng Bayesian là gì và chúng được sử dụng như thế nào trong AI?",
+    "answer": "ai"
+  },
+  {
+    "question": " Mô hình Markov ẩn (HMM) hoạt động như thế nào trong AI?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số quan niệm sai lầm phổ biến về AI là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Có bao nhiêu loại AI khác nhau?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số ứng dụng thực tế của AI là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Lý thuyết trò chơi liên quan đến AI như thế nào?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số ngôn ngữ lập trình phổ biến được sử dụng trong AI là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số công cụ và nền tảng AI phổ biến là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Logic mờ hoạt động như thế nào trong AI?",
+    "answer": "ai"
+  },
+  {
+    "question": " Các mô hình AI xử lý sự không chắc chắn trong thế giới thực như thế nào?",
+    "answer": "ai"
+  },
+  {
+    "question": " Mạng Bayesian là gì và chúng được sử dụng như thế nào trong AI?",
+    "answer": "ai"
+  },
+  {
+    "question": " Mô hình Markov ẩn (HMM) hoạt động như thế nào trong AI?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số quan niệm sai lầm phổ biến về AI là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Có bao nhiêu loại AI khác nhau?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số ứng dụng thực tế của AI là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Lý thuyết trò chơi liên quan đến AI như thế nào?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số ngôn ngữ lập trình phổ biến được sử dụng trong AI là gì?",
+    "answer": "aia"
+  },
+  {
+    "question": " Một số công cụ và nền tảng AI phổ biến là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Logic mờ hoạt động như thế nào trong AI?",
+    "answer": "ai"
+  },
+  {
+    "question": " Các mô hình AI xử lý sự không chắc chắn trong thế giới thực như thế nào?",
+    "answer": "aia"
+  },
+  {
+    "question": " Mạng Bayesian là gì và chúng được sử dụng như thế nào trong AI?",
+    "answer": "ai"
+  },
+  {
+    "question": " Mô hình Markov ẩn (HMM) hoạt động như thế nào trong AI?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số quan niệm sai lầm phổ biến về AI là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Có bao nhiêu loại AI khác nhau?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số ứng dụng thực tế của AI là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Lý thuyết trò chơi liên quan đến AI như thế nào?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số ngôn ngữ lập trình phổ biến được sử dụng trong AI là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số công cụ và nền tảng AI phổ biến là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Logic mờ hoạt động như thế nào trong AI?",
+    "answer": "ai"
+  },
+  {
+    "question": " Các mô hình AI xử lý sự không chắc chắn trong thế giới thực như thế nào?",
+    "answer": "ai"
+  },
+  {
+    "question": " Mạng Bayesian là gì và chúng được sử dụng như thế nào trong AI?",
+    "answer": "ia"
+  },
+  {
+    "question": " Mô hình Markov ẩn (HMM) hoạt động như thế nào trong AI?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số quan niệm sai lầm phổ biến về AI là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Có bao nhiêu loại AI khác nhau?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số ứng dụng thực tế của AI là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Lý thuyết trò chơi liên quan đến AI như thế nào?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số ngôn ngữ lập trình phổ biến được sử dụng trong AI là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Một số công cụ và nền tảng AI phổ biến là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": " Logic mờ hoạt động như thế nào trong AI?",
+    "answer": "ai"
+  },
+  {
+    "question": " Các mô hình AI xử lý sự không chắc chắn trong thế giới thực như thế nào?",
+    "answer": "ai"
+  },
+  {
+    "question": " Mạng Bayesian là gì và chúng được sử dụng như thế nào trong AI?",
+    "answer": "ai"
+  },
+  {
+    "question": " Mô hình Markov ẩn (HMM) hoạt động như thế nào trong AI?",
+    "answer": "ai"
+  },
+  {
+    "question": "Cloud Computing là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": "Lợi ích chính của Cloud Computing là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": "Các loại dịch vụ lưu trữ đám mây phổ biến là gì?",
+    "answer": "ai"
+  },
+  {
+    "question": "IaaS, PaaS và SaaS là gì và khác nhau như thế nào?",
+    "answer": "âu"
+  },
+  {
+    "question": "Cloud có thể hoạt động như thế nào trong môi trường doanh nghiệp?",
+    "answer": "au"
+  },
+  {
+    "question": "Các mối nguy hiểm bảo mật khi sử dụng Cloud Computing là gì?",
+    "answer": "âu"
+  },
+  {
+    "question": "Làm sao bạn bảo vệ dữ liệu trong môi trường Cloud?",
+    "answer": "âu"
+  },
+  {
+    "question": "Làm sao bạn tối ưu hóa chi phí khi sử dụng Cloud?",
+    "answer": "ua"
+  },
+  {
+    "question": "Cloud Computing có thể mở rộng như thế nào?",
+    "answer": "ậ"
+  },
+  {
+    "question": "Làm sao bạn triển khai một ứng dụng trên nền tảng Cloud?",
+    "answer": "ạ"
+  }
+]
